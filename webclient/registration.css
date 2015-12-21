@@ -1,0 +1,156 @@
+body {
+    background: url('http://i.imgur.com/Eor57Ae.jpg') no-repeat fixed center center;
+    background-size: cover;
+    font-family: Montserrat, sans-serif;
+}
+
+.login-block #rem-reg {
+    width: 320px;
+}
+
+.logo {
+    background: url('logo-nosha.png') no-repeat center center;
+    background-size: 200px;
+    height:200px;
+    width:200px;
+    float: right;
+    padding: 30px 20px 0 0;
+}
+
+.login-block {
+    width:570px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    border-top: 5px solid #ff656c;
+    margin: 80px auto;
+}
+
+.login-block input#remember {
+    height: 12px;
+    width: 12px;
+    
+}
+
+.login-block span#remember-text {
+    font-family: sans-serif;
+    font-size: 1em;
+    color: #aaa;
+    /*width:320px;*/
+}
+
+.login-block span#not-reg a {
+    font-family: sans-serif;
+    font-size: 1em;
+    color: #aaa;
+    float: right;
+    text-decoration: none;
+}
+
+.login-block h1 {
+    font-family: sans-serif;
+    text-align: center;
+    color: #aaa;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 20px;
+    width: 320px;
+}
+
+.login-block input {
+    /*width: 100%;*/width:320px;
+    height: 42px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-family: Montserrat, sans-serif;
+    padding: 0 20px 0 50px;
+    outline: none;
+}
+
+.login-block input#fname {
+    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
+    background-size: 16px 80px;
+}
+
+.login-block input#fname:focus {
+    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
+    background-size: 16px 80px;
+}
+
+.login-block input#lname {
+    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
+    background-size: 16px 80px;
+}
+
+.login-block input#lname:focus {
+    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
+    background-size: 16px 80px;
+}
+
+.login-block input#email {
+    background: #fff url('email.png') 20px top no-repeat;
+    background-size: 16px 80px;
+}
+
+.login-block input#email:focus {
+    background: #fff url('email.png') 20px bottom no-repeat;
+    background-size: 16px 80px;
+}
+
+.login-block input#idnumber {
+    background: #fff url('id.png') 20px top no-repeat;
+    background-size: 16px 80px;
+}
+
+.login-block input#idnumber:focus {
+    background: #fff url('id.png') 20px bottom no-repeat;
+    background-size: 16px 80px;
+}
+
+.login-block input#password {
+    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px top no-repeat;
+    background-size: 16px 80px;
+}
+
+.login-block input#password:focus {
+    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px bottom no-repeat;
+    background-size: 16px 80px;
+}
+
+.login-block input#conf-password {
+    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px top no-repeat;
+    background-size: 16px 80px;
+}
+
+.login-block input#conf-password:focus {
+    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px bottom no-repeat;
+    background-size: 16px 80px;
+}
+
+.login-block input:active, .login-block input:focus {
+    border: 1px solid #ff656c;
+}
+
+.login-block button {
+    /*width: 100%;*/width:320px;
+    height: 40px;
+    background: #ff656c;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #e15960;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: Montserrat, sans-serif;
+    outline: none;
+    cursor: pointer;
+}
+
+.login-block button:hover {
+    background: #ff7b81;
+}
