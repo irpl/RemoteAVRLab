@@ -4,49 +4,57 @@
 <title>Page Title</title>
 
 <meta charset="utf-8"/>
-<link rel=stylesheet href="CodeMirror/doc/docs.css">
 
+<link rel=stylesheet href="CodeMirror/doc/docs.css">
 <link rel="stylesheet" href="CodeMirror/lib/codemirror.css">
+<link rel="stylesheet" href="stylesheet.css">
+
 <script src="CodeMirror/lib/codemirror.js"></script>
 <script src="CodeMirror/mode/clike/clike.js"></script>
-<!--<script src="CodeMirror/mode/xml/xml.js"></script>-->
-<script src="CodeMirror/keymap/sublime/sublime.js"></script>
+<script src="CodeMirror/keymap/sublime.js"></script>
 <script src="CodeMirror/addon/edit/matchbrackets.js"></script>
 <script src="CodeMirror/addon/edit/closebrackets.js"></script>
 
-<style type="text/css">
-      .CodeMirror {border: 1px solid silver; border-width: 1px 2px; }
-    </style>
+<style type="text/css">.CodeMirror {border: 1px solid silver; border-width: 1px 2px; }</style>
+
 </head>
 <body>
 
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
-<form>
-<textarea id="code" name="code">
+	<h1>This is a Heading</h1>
+	<p>This is a paragraph.</p>
+	
+	<div>
+		<form action="upload.php" method="post" enctype="multipart/form-data">
+		    Select image to upload:
+		    <input type="file" name="fileToUpload" id="fileToUpload">
+		    <input type="submit" value="Upload Image" name="submit">
+		</form>
+	</div>
+	
+	<iframe width="720" height="360"></iframe>
+	
+	<textarea id="code" name="code">
 /* Hello World program */
-
+	
 #include<stdio.h>
-
+	
 int main(void)
 {
     printf("Hello World\n");
     return 0;
-
-}     
-</textarea><form>
-
-<script id="script">
-	var editor = CodeMirror.fromTextArea(document.getElementById("code"), 
-	{
-		lineNumbers: true,
-		lineWrapping: true,
-		mode: "text/x-csrc",
-		keymap: "sublime",
-		autoCloseBrackets: true,
-    	matchBrackets: true
-	});
-</script>
+}</textarea>
+	
+	<script id="script">
+		var editor = CodeMirror.fromTextArea(document.getElementById("code"), 
+		{
+			lineNumbers: true,
+			lineWrapping: true,
+			mode: "text/x-csrc",
+			keymap: "sublime",
+			autoCloseBrackets: true,
+	    	matchBrackets: true
+		});
+	</script>
 
 </body>
 </html>
