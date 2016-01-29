@@ -7,42 +7,64 @@
 
 <link rel=stylesheet href="CodeMirror/doc/docs.css">
 <link rel="stylesheet" href="CodeMirror/lib/codemirror.css">
+<link rel="stylesheet" href="CodeMirror/addon/display/fullscreen.css">
 <link rel="stylesheet" href="stylesheet.css">
+
 
 <script src="CodeMirror/lib/codemirror.js"></script>
 <script src="CodeMirror/mode/clike/clike.js"></script>
 <script src="CodeMirror/keymap/sublime.js"></script>
 <script src="CodeMirror/addon/edit/matchbrackets.js"></script>
 <script src="CodeMirror/addon/edit/closebrackets.js"></script>
+<script src="CodeMirror/addon/display/fullscreen.js"></script>
 
 <style type="text/css">.CodeMirror {border: 1px solid silver; border-width: 1px 2px; }</style>
 
 </head>
 <body>
 
-	<h1>This is a Heading</h1>
-	<p>This is a paragraph.</p>
+	<h1>Remote AVR Lab</h1>
+	<p>Lab 1</p>
+	
+	<div id="body">
 	
 	<div>
 		<form action="upload.php" method="post" enctype="multipart/form-data">
 		    Select image to upload:
 		    <input type="file" name="fileToUpload" id="fileToUpload">
-		    <input type="submit" value="Upload Image" name="submit">
+		    <input type="submit" value="Upload Code" name="submit">
 		</form>
 	</div>
 	
-	<iframe width="720" height="360"></iframe>
 	
+	
+	<div id="text">
 	<textarea id="code" name="code">
-/* Hello World program */
-	
-#include<stdio.h>
-	
+/* Attint2313 blink program */
+
 int main(void)
 {
-    printf("Hello World\n");
-    return 0;
+    DDRD |= (1 << PD6);  // make PD6 an output
+
+    for(;;)
+    {
+        PORTD ^= (1 << PD6);  // toggle PD6
+        _delay_ms(1000);  // delay for a second
+    }
+
+    return 0;  // the program executed successfully
 }</textarea>
+	</div>
+
+		<div id="live">
+			<iframe width="660" height="500" src="http://72.252.146.255:8081" scrolling="no" frameborder="0">
+				<p>Your browser does not support iframes.</p>
+			</iframe>
+		</div>
+
+
+	</div>
+	
 	
 	<script id="script">
 		var editor = CodeMirror.fromTextArea(document.getElementById("code"), 
@@ -52,7 +74,16 @@ int main(void)
 			mode: "text/x-csrc",
 			keymap: "sublime",
 			autoCloseBrackets: true,
-	    	matchBrackets: true
+	    	matchBrackets: true,
+	    	extraKeys: {
+        		"F11": function(cm) {
+          			cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+        		},
+        		"Esc": function(cm) {
+        			if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+        		}
+      		},
+	    	viewportMargin: Infinity
 		});
 	</script>
 
