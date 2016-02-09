@@ -29,10 +29,10 @@ function completeHandler(event){
 	    var reader = new FileReader();
 	    reader.readAsText(file, "UTF-8");
 	    reader.onload = function (evt) {
-	        document.getElementById("text").value = evt.target.result;
+	        document.getElementById("code").value = evt.target.result;
 	    }
 	    reader.onerror = function (evt) {
-	        document.getElementById("text").value = "error reading file";
+	        document.getElementById("code").value = "error reading file";
 	    }
 	}
 }
