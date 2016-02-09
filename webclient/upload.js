@@ -11,7 +11,7 @@ function uploadFile(){
 	ajax.addEventListener("load", completeHandler, false);
 	ajax.addEventListener("error", errorHandler, false);
 	ajax.addEventListener("abort", abortHandler, false);
-	ajax.open("POST", "file_upload_parser.php");
+	ajax.open("POST", "upload.php");
 	ajax.send(formdata);
 }
 function progressHandler(event){
