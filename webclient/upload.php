@@ -8,6 +8,10 @@ if (!$fileTmpLoc) { // if file not chosen
     echo "ERROR: Please browse for a file before clicking the upload button.";
     exit();
 }
+if($fileType != "c" || $fileType != "asm" || $fileType != "hex"){
+    echo "Invalid file type. Please choose a .c, .asm or .hex file.";
+    exit();
+}
 if(move_uploaded_file($fileTmpLoc, "test_uploads/$fileName")){
     echo "$fileName upload is complete";
 } else {
