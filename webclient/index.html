@@ -17,6 +17,7 @@
 <script src="CodeMirror/addon/edit/matchbrackets.js"></script>
 <script src="CodeMirror/addon/edit/closebrackets.js"></script>
 <script src="CodeMirror/addon/display/fullscreen.js"></script>
+<script type="text/javasvcript" src="upload.js"></script>
 
 <style type="text/css">.CodeMirror {border: 1px solid silver; border-width: 1px 2px; }</style>
 
@@ -29,11 +30,14 @@
 	<div id="body">
 	
 	<div>
-		<form action="upload.php" method="post" enctype="multipart/form-data">
-		    Select source code to upload:
-		    <input type="file" name="fileToUpload" id="fileToUpload">
-		    <input type="submit" value="Upload Code" name="submit">
+		<form id="upload_form" enctype="multipart/form-data" method="post">
+		  	<input type="file" name="file1" id="file1"><br>
+		  	<input type="button" value="Upload File" onclick="uploadFile()">
+		 	<progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+			<h3 id="status"></h3>
+		 	<p id="loaded_n_total"></p>
 		</form>
+		<progress></progress>
 	</div>
 	
 	
