@@ -13,7 +13,7 @@ if($fileExtention != "c" && $fileExtention != "asm" && $fileExtention != "hex"){
     echo "Invalid file type. Please choose a .c, .asm or .hex file.";
     exit();
 }
-if(move_uploaded_file($fileTmpLoc, "test_uploads/$fileName")){
+if(move_uploaded_file($fileTmpLoc, "uploads/$fileName")){
     echo "$fileName upload is complete";
 } else {
     echo "move_uploaded_file function failed";
