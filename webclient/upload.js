@@ -23,6 +23,18 @@ function progressHandler(event){
 function completeHandler(event){
 	_("status").innerHTML = event.target.responseText;
 	_("progressBar").value = 0;
+	
+	var file = _("file1").files[0];
+	if (file) {
+	    var reader = new FileReader();
+	    reader.readAsText(file, "UTF-8");
+	    reader.onload = function (evt) {
+	        document.getElementById("text").value = evt.target.result;
+	    }
+	    reader.onerror = function (evt) {
+	        document.getElementById("text").value = "error reading file";
+	    }
+	}
 }
 function errorHandler(event){
 	_("status").innerHTML = "Upload Failed";
