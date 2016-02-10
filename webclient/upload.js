@@ -1,3 +1,24 @@
+var editor;
+function dawg(text){
+		editor = CodeMirror.fromTextArea(text, 
+		{
+			lineNumbers: true,
+			lineWrapping: true,
+			mode: "text/x-csrc",
+			keymap: "sublime",
+			autoCloseBrackets: true,
+	    	matchBrackets: true,
+	    	extraKeys: {
+        		"F11": function(cm) {
+          			cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+        		},
+        		"Esc": function(cm) {
+        			if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+        		}
+      		},
+	    	viewportMargin: Infinity
+		});
+}
 function _(el){
 	return document.getElementById(el);
 }
@@ -30,11 +51,13 @@ function completeHandler(event){
 	    reader.readAsText(file, "UTF-8");
 	    reader.onload = function (evt) {
 	        document.getElementById("code").value = evt.target.result;
+	        editor.getDoc().setValue(document.getElementById("code").value);
 	    }
 	    reader.onerror = function (evt) {
 	        document.getElementById("code").value = "error reading file";
 	    }
 	}
+	
 }
 function errorHandler(event){
 	_("status").innerHTML = "Upload Failed";
