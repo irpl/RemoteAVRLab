@@ -17,33 +17,32 @@
 <script src="CodeMirror/addon/edit/matchbrackets.js"></script>
 <script src="CodeMirror/addon/edit/closebrackets.js"></script>
 <script src="CodeMirror/addon/display/fullscreen.js"></script>
-<script src="upload.js"></script>
+<script src="upload_cm.js"></script>
 
-<style type="text/css">.CodeMirror {border: 1px solid silver; border-width: 1px 2px; }</style>
+<!--<style type="text/css">.CodeMirror {border: 1px solid silver; border-width: 1px 2px; }</style>-->
 
 </head>
 <body>
 
-	<h1>Remote AVR Lab</h1>
-	<p>Lab 1</p>
-	
-	<div id="body">
-	
-	<div>
-		<form id="upload_form" enctype="multipart/form-data" method="post">
-		  	<input type="file" name="file1" id="file1" accept=".c, .asm, .hex"><br>
-		  	<input type="button" value="Upload File" onclick="uploadFile()">
-		 	<progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
-			<h3 id="status"></h3>
-		 	<p id="loaded_n_total"></p>
-		</form>
-	</div>
-	
-	
-	
-	<div id="text">
-	<textarea id="code" name="code">
-/* Attint2313 blink program */
+<h1>Remote AVR Lab</h1>
+<p>Lab 1</p>
+
+<div id="bod">
+
+<div>
+	<form id="upload_form" enctype="multipart/form-data" method="post">
+	  	<input type="file" name="file1" id="file1" accept=".c, .asm, .hex"><br>
+	  	<input type="button" value="Upload File" onclick="uploadFile()">
+	 	<progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+		<h3 id="status"></h3>
+	 	<p id="loaded_n_total"></p>
+	</form>
+</div>
+
+
+
+<div id="text">
+<textarea id="code" name="code"  rows="14" >/* Attint2313 blink program */
 
 int main(void)
 {
@@ -57,21 +56,22 @@ int main(void)
 
     return 0;  // the program executed successfully
 }</textarea>
-	</div>
+</div>
 
-		<div id="live">
-			<iframe width="660" height="500" src="http://72.252.157.203:8081" scrolling="no" frameborder="0">
-				<p>Your browser does not support iframes.</p>
-			</iframe>
-		</div>
+<div id="live">
+	<iframe width="660" height="500" src="http://72.252.157.203:8081" scrolling="no" frameborder="0">
+		<p>Your browser does not support iframes.</p>
+	</iframe>
+</div>
 
+<script id="doge"> 
+	dawg(document.getElementById('code'));
+</script>
 
-	</div>
+</div>
 
 	
-	<script> 
-		dawg(document.getElementById('code'));
-	</script>
+
 	<!--<script id="script">-->
 	<!--	var editor = CodeMirror.fromTextArea(document.getElementById('code'), -->
 	<!--	{-->

@@ -71,7 +71,7 @@ body {
     outline: none;
 }
 
-.login-block input#username {
+.login-block input#idnumber {
     background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
     background-size: 16px 80px;
 }

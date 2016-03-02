@@ -6,6 +6,7 @@ function dawg(text){
 			lineWrapping: true,
 			mode: "text/x-csrc",
 			keymap: "sublime",
+			//minHeight: 1500,
 			autoCloseBrackets: true,
 	    	matchBrackets: true,
 	    	extraKeys: {
@@ -18,6 +19,7 @@ function dawg(text){
       		},
 	    	viewportMargin: Infinity
 		});
+		editor.setSize(null, "100%");
 }
 function _(el){
 	return document.getElementById(el);
@@ -50,8 +52,9 @@ function completeHandler(event){
 	    var reader = new FileReader();
 	    reader.readAsText(file, "UTF-8");
 	    reader.onload = function (evt) {
-	        document.getElementById("code").value = evt.target.result;
-	        editor.getDoc().setValue(document.getElementById("code").value);
+	        //document.getElementById("code").value = evt.target.result;
+	        //editor.getDoc().setValue(document.getElementById("code").value);
+	        editor.getDoc().setValue(evt.target.result);
 	    }
 	    reader.onerror = function (evt) {
 	        document.getElementById("code").value = "error reading file";

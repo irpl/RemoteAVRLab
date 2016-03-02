@@ -111,23 +111,23 @@ body {
     background-size: 16px 80px;
 }
 
-.login-block input#password {
-    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px top no-repeat;
+.login-block input#pass1 {
+    background: #fff url('pass.png') 20px top no-repeat;
     background-size: 16px 80px;
 }
 
-.login-block input#password:focus {
-    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px bottom no-repeat;
+.login-block input#pass1:focus {
+    background: #fff url('pass.png') 20px bottom no-repeat;
     background-size: 16px 80px;
 }
 
-.login-block input#conf-password {
-    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px top no-repeat;
+.login-block input#pass2 {
+    background: #fff url('pass.png') 20px top no-repeat;
     background-size: 16px 80px;
 }
 
-.login-block input#conf-password:focus {
-    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px bottom no-repeat;
+.login-block input#pass2:focus {
+    background: #fff url('pass.png') 20px bottom no-repeat;
     background-size: 16px 80px;
 }
 
@@ -153,4 +153,16 @@ body {
 
 .login-block button:hover {
     background: #ff7b81;
+}
+
+#idnumber {
+    margin:0;
+}
+
+#idnumstatus {
+    margin-bottom: 42px;
+    padding: 0;
+    font-size:12px;
+    display:inline;
+    width:100%;
 }

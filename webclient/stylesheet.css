@@ -1,5 +1,14 @@
-#body{
+.CodeMirror {
+    border: 1px solid silver;
+    border-width: 1px 2px;
+    height: auto;
+    /*width:100%;*/
+    
+}
+
+#bod{
     width: 90%;
+    height: 90%;
     margin: 5px auto;
 }
 
@@ -11,5 +20,9 @@
 #text{
     float: left;
     width:45%;
-    height:auto;
+    /*height:auto;*/
+}
+
+#doge{
+    height:100%;
 }
