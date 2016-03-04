@@ -1,20 +1,5 @@
-function _(x){
-	return document.getElementById(x);
-}
-function ajaxObj( meth, url ) {
-	var x = new XMLHttpRequest();
-	x.open( meth, url, true );
-	x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	return x;
-}
-function ajaxReturn(x){
-	if(x.readyState == 4 && x.status == 200){
-	    return true;	
-	}
-}
-
 function table() {
-    return document.getElementById('admin_table');
+    return _('admin_table');
 }
 
 function refreshTable() {
@@ -37,7 +22,7 @@ function activate(row) {
     var status =_("status"); 
     if (confirm("You are about to activate user "+user[3]+".\nAre you sure?")) {
         //alert(user);
-        var ajax = ajaxObj("POST", "activation.php");
+        var ajax = ajaxObj("POST", "php/activation.php");
         ajax.onreadystatechange = function() {
 	        if(ajaxReturn(ajax) == true) {
 	            if(ajax.responseText != "activation_success"){

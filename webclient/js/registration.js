@@ -29,7 +29,7 @@ function checkidnumber(){
 	var i = _("idnumber").value;
 	if(i != ""){
 		_("idnumstatus").innerHTML = 'checking ...';
-		var ajax = ajaxObj("POST", "signup.php");
+		var ajax = ajaxObj("POST", "php/signup.php");
         ajax.onreadystatechange = function() {
 	        if(ajaxReturn(ajax) == true) {
 	            _("idnumstatus").innerHTML = ajax.responseText;
@@ -53,7 +53,7 @@ function signup(){
 	} else {
 		_("signupbtn").style.display = "none";
 		status.innerHTML = 'please wait ...';
-		var ajax = ajaxObj("POST", "signup.php");
+		var ajax = ajaxObj("POST", "php/signup.php");
         ajax.onreadystatechange = function() {
 	        if(ajaxReturn(ajax) == true) {
 	            if(ajax.responseText != "signup_success"){

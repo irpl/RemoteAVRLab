@@ -1,7 +1,7 @@
 body {
     background: url('http://i.imgur.com/Eor57Ae.jpg') no-repeat fixed center center;
     background-size: cover;
-    font-family: Montserrat, sans-serif;
+    font-family: Montserrat;
 }
 
 .login-block #rem-reg {
@@ -9,7 +9,7 @@ body {
 }
 
 .logo {
-    background: url('logo-nosha.png') no-repeat center center;
+    background: url('../img/logo-nosha.png') no-repeat center center;
     background-size: 200px;
     height:200px;
     width:200px;
@@ -71,63 +71,23 @@ body {
     outline: none;
 }
 
-.login-block input#fname {
-    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
-    background-size: 16px 80px;
-}
-
-.login-block input#fname:focus {
-    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
-    background-size: 16px 80px;
-}
-
-.login-block input#lname {
-    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
-    background-size: 16px 80px;
-}
-
-.login-block input#lname:focus {
-    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
-    background-size: 16px 80px;
-}
-
-.login-block input#email {
-    background: #fff url('email.png') 20px top no-repeat;
-    background-size: 16px 80px;
-}
-
-.login-block input#email:focus {
-    background: #fff url('email.png') 20px bottom no-repeat;
-    background-size: 16px 80px;
-}
-
 .login-block input#idnumber {
-    background: #fff url('id.png') 20px top no-repeat;
+    background: #fff url('../img/id.png') 20px top no-repeat;
     background-size: 16px 80px;
 }
 
-.login-block input#idnumber:focus {
-    background: #fff url('id.png') 20px bottom no-repeat;
+/*.login-block input#username:focus {*/
+/*    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;*/
+/*    background-size: 16px 80px;*/
+/*}*/
+
+.login-block input#password {
+    background: #fff url('../img/pass.png') 20px top no-repeat;
     background-size: 16px 80px;
 }
 
-.login-block input#pass1 {
-    background: #fff url('pass.png') 20px top no-repeat;
-    background-size: 16px 80px;
-}
-
-.login-block input#pass1:focus {
-    background: #fff url('pass.png') 20px bottom no-repeat;
-    background-size: 16px 80px;
-}
-
-.login-block input#pass2 {
-    background: #fff url('pass.png') 20px top no-repeat;
-    background-size: 16px 80px;
-}
-
-.login-block input#pass2:focus {
-    background: #fff url('pass.png') 20px bottom no-repeat;
+.login-block input#password:focus {
+    background: #fff url('../img/pass.png') 20px bottom no-repeat;
     background-size: 16px 80px;
 }
 
@@ -153,16 +113,4 @@ body {
 
 .login-block button:hover {
     background: #ff7b81;
-}
-
-#idnumber {
-    margin:0;
-}
-
-#idnumstatus {
-    margin-bottom: 42px;
-    padding: 0;
-    font-size:12px;
-    display:inline;
-    width:100%;
 }

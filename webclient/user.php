@@ -1,5 +1,5 @@
 <?php
-include_once("check_login_status.php");
+include_once("php/check_login_status.php");
 // Initialize any variables that the page might echo
 $i = "";
 $e = "";
@@ -56,21 +56,123 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
 <meta charset="UTF-8">
 <title><?php echo $i; ?></title>
 <link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="utf-8"/>
+
+<link rel=stylesheet href="CodeMirror/doc/docs.css">
+<link rel="stylesheet" href="CodeMirror/lib/codemirror.css">
+<link rel="stylesheet" href="CodeMirror/addon/display/fullscreen.css">
+<link rel="stylesheet" href="css/stylesheet.css">
+
+
+<script src="CodeMirror/lib/codemirror.js"></script>
+<script src="CodeMirror/mode/clike/clike.js"></script>
+<script src="CodeMirror/keymap/sublime.js"></script>
+<script src="CodeMirror/addon/edit/matchbrackets.js"></script>
+<script src="CodeMirror/addon/edit/closebrackets.js"></script>
+<script src="CodeMirror/addon/display/fullscreen.js"></script>
+<link href='css/user.css' rel='stylesheet' type='text/css'>
+<script src="js/ajax.js"></script>
+<script src="js/users.js"></script>
+<script src="js/upload.js"></script>
 <!--<link rel="stylesheet" href="style/style.css">-->
 <!--<script src="js/main.js"></script>-->
 <!--<script src="js/ajax.js"></script>-->
 </head>
 <body>
-<?php //include_once("template_pageTop.php"); ?>
 <div id="pageMiddle">
-  <h3><?php echo $i; ?></h3>
-  <p>Is the viewer the page owner, logged in and verified? <b><?php echo $isOwner; ?></b></p>
-  <p>ID Number: <?php echo $profile_idnumber; ?></p>
-  <p>Name: <?php echo $profile_fname . ' ' . $profile_lname; ?></p>
-  <p>Email: <?php echo $profile_email; ?></p>
-  <!--<p>Join Date: <?php echo $joindate; ?></p>-->
-  <!--<p>Last Session: <?php echo $lastsession; ?></p>-->
+    <h1><?php echo $i; ?></h1>
+    <p>Is the viewer the page owner, logged in and verified? <b><?php echo $isOwner; ?></b></p>
+    <p>ID Number: <?php echo $profile_idnumber; ?></p>
+    <p>Name: <?php echo $profile_fname . ' ' . $profile_lname; ?></p>
+    <p>Email: <?php echo $profile_email; ?></p>
+    <!--<p>Join Date: <?php echo $joindate; ?></p>-->
+    <!--<p>Last Session: <?php echo $lastsession; ?></p>-->
+    
+    <div id="lab_buttons">
+        <button id="lab1" onclick="loadLab(1)" >Lab 1</button>
+        <button id="lab2" onclick="loadLab(2)" >Lab 2</button>
+        <button id="lab3" onclick="loadLab(3)" >Lab 3</button>
+    </div>
+
+    <?php
+        if ($isOwner == "no"){
+            ?>
+                <script type="text/javascript">
+                    _("lab_buttons").style.display="none";
+                </script>
+            <?php
+        }
+    ?>
+
+    <div id="lab">
+        <h1>Remote AVR Lab</h1>
+        <p>Lab 1</p>
+        
+        <div id="bod">
+        
+        <div>
+        	<form id="upload_form" enctype="multipart/form-data" method="post">
+        	  	<input type="file" name="file1" id="file1" accept=".c, .asm, .hex"><br>
+        	  	<input type="button" value="Upload File" onclick="uploadFile()">
+        	 	<progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+        		<h3 id="status"></h3>
+        	 	<p id="loaded_n_total"></p>
+        	</form>
+        </div>
+        
+        
+        
+        <div id="text">
+        	<div>
+        		<input id="save" type="button" value="Save" onclick="save()">
+        		<input id="program" type="button" value="Program" onclick="program()">
+        	</div>
+        <textarea id="code" name="code"  rows="14" >/* Attint2313 blink program */
+int main(void)
+{
+    DDRD |= (1 << PD6);  // make PD6 an output
+
+    while(1)
+    {
+        PORTD ^= (1 << PD6);  // toggle PD6
+        _delay_ms(1000);  // delay for a second
+    }
+    return 0;  // the program executed successfully
+}</textarea>
+<div id="error"></div>
+        </div>
+        
+        <div id="live">
+        	<iframe width="660" height="500" src="http://72.252.157.203:8081" scrolling="no" frameborder="0">
+        		<p>Your browser does not support iframes.</p>
+        	</iframe>
+        </div>
+        
+        <script> 
+        	//dawg(_("code"));
+        	var code = document.getElementById("code");
+        	var editor = CodeMirror.fromTextArea(code, {
+        		mode: "text/x-csrc",
+        	  	lineNumbers: true,
+        	  	keymap: "sublime",
+        		//height: 100px,
+        		minHeight: "200px",
+        		autoCloseBrackets: true,
+        		matchBrackets: true,
+        		extraKeys: {
+        			"F11": function(cm) {
+        		  		cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+        			},
+        			"Esc": function(cm) {
+        				if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+        			}
+        		  }
+        	});
+        </script>
+        
+        </div>
+    </div>
+    
 </div>
-<?php //include_once("template_pageBottom.php"); ?>
 </body>
 </html>

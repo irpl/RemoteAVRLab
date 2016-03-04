@@ -1,8 +1,8 @@
 <?php
-include_once("db_conx.php"); 
+include_once("php/isAdmin.php");
 ?>
 
-<?php
+<?php//"delete user from table" code to be written
 if (isset($_POST['d'])){}
 ?>
 
@@ -11,7 +11,8 @@ if (isset($_POST['d'])){}
 <head>
 	<title>Admin</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-	<script src="admin.js"></script>
+	<script src="js/admin.js"></script>
+	<script src="js/ajax.js"></script>
 </head>
 <body>
 

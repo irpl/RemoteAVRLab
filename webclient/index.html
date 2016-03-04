@@ -8,7 +8,7 @@
 <link rel=stylesheet href="CodeMirror/doc/docs.css">
 <link rel="stylesheet" href="CodeMirror/lib/codemirror.css">
 <link rel="stylesheet" href="CodeMirror/addon/display/fullscreen.css">
-<link rel="stylesheet" href="stylesheet.css">
+<link rel="stylesheet" href="css/stylesheet.css">
 
 
 <script src="CodeMirror/lib/codemirror.js"></script>
@@ -17,7 +17,7 @@
 <script src="CodeMirror/addon/edit/matchbrackets.js"></script>
 <script src="CodeMirror/addon/edit/closebrackets.js"></script>
 <script src="CodeMirror/addon/display/fullscreen.js"></script>
-<script src="upload_cm.js"></script>
+<script src="js/upload.js"></script>
 
 <!--<style type="text/css">.CodeMirror {border: 1px solid silver; border-width: 1px 2px; }</style>-->
 
@@ -42,6 +42,10 @@
 
 
 <div id="text">
+	<div>
+		<input type="button" value="Save" onclick="save()">
+		<input type="button" value="Program" onclick="program()">
+	</div>
 <textarea id="code" name="code"  rows="14" >/* Attint2313 blink program */
 
 int main(void)
@@ -64,8 +68,15 @@ int main(void)
 	</iframe>
 </div>
 
-<script id="doge"> 
-	dawg(document.getElementById('code'));
+<script> 
+	//dawg(document.getElementById('code'));
+	var code = document.getElementById("code");
+	var editor = CodeMirror.fromTextArea(code, {
+		mode: "text/x-csrc",
+	  	lineNumbers: true,
+	  	keymap: "sublime",
+		
+	});
 </script>
 
 </div>

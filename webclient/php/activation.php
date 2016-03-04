@@ -40,7 +40,7 @@ Email: '.$email_e.'
 
 Review the information and click the link below to activate the account when ready:
 
-https://remoteavrlab-irpl.c9users.io/webclient/activation.php?id='.$email_id.'&i='.$email_i.'&e='.$email_e.'&p='.$email_p.'
+https://remoteavrlab-irpl.c9users.io/webclient/php/activation.php?id='.$email_id.'&i='.$email_i.'&e='.$email_e.'&p='.$email_p.'
 
 RemoteAVRLab';
 
@@ -70,22 +70,32 @@ RemoteAVRLab';
     	exit();
 	
 }
-
-if (isset($_POST['id']) && isset($_POST['i']) && isset($_POST['e'])) {
+?>
+<?php
+if ((isset($_POST['id']) || isset($_GET['id'])) && (isset($_POST['i']) || isset($_GET['i'])) && (isset($_POST['e']) || isset($_GET['e']))) {
 																// && isset($_GET['p'])
 	//echo $_POST['id'] ." ". $_POST['i'] ." ".$_POST['e'];
 	//exit();
 																
 	// Connect to database and sanitize incoming $_GET variables
-    include_once("db_conx.php");
-    $id = preg_replace('#[^0-9]#i', '', $_POST['id']); 
-	$i = preg_replace('#[^0-9]#i', '', $_POST['i']);
-	$e = mysqli_real_escape_string($db_conx, $_POST['e']);
-	$p = mysqli_real_escape_string($db_conx, $_POST['p']);
+    //include_once("db_conx.php");
+    include_once("isAdmin.php");
+    if ($id = preg_replace('#[^0-9]#i', '', $_POST['id']) != ""){
+	    //$id = preg_replace('#[^0-9]#i', '', $_POST['id']); 
+		$i = preg_replace('#[^0-9]#i', '', $_POST['i']);
+		$e = mysqli_real_escape_string($db_conx, $_POST['e']);
+		$p = mysqli_real_escape_string($db_conx, $_POST['p']);
+    } else {
+    	$id = preg_replace('#[^0-9]#i', '', $_GET['id']); 
+		$i = preg_replace('#[^0-9]#i', '', $_GET['i']);
+		$e = mysqli_real_escape_string($db_conx, $_GET['e']);
+		$p = mysqli_real_escape_string($db_conx, $_GET['p']);
+    }
 	// Evaluate the lengths of the incoming $_GET variable
 	if($id == "" || strlen($i) != 9 || strlen($e) < 5 ){
 													//|| strlen($p) == ""
 		// Log this issue into a text file and email details to yourself
+		//echo $_POST['id'] ." ". $_POST['i'] ." ".$_POST['e'] ."f";
 		header("location: message.php?msg=activation_string_length_issues");
     	exit(); 
 	}
@@ -158,6 +168,7 @@ RemoteAVRLab';
     }
 } else {
 	// Log this issue of missing initial $_GET variables
+	//echo $_POST['id'] ." ". $_POST['i'] ." ".$_POST['e'] ."f";
 	header("location: message.php?msg=missing_GET_variables");
     exit(); 
 }

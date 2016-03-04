@@ -81,8 +81,8 @@ if(isset($_POST["f"])){
 		//$sql = "INSERT INTO useroptions (id, username, background) VALUES ('$uid','$u','original')";
 		//$query = mysqli_query($db_conx, $sql);
 		// Create directory(folder) to hold each user's files(pics, MP3s, etc.)
-		if (!file_exists("users/$i")) {
-			mkdir("users/$i", 0755);
+		if (!file_exists("../users/$i")) {
+			mkdir("../users/$i", 0755);
 		}
 		// Email the user their activation link
 		require_once "Mail.php";
@@ -99,7 +99,7 @@ Email: '.$e.'
 
 If the above information is correct, click the activation link below.
 
-https://remoteavrlab-irpl.c9users.io/webclient/activation.php?a='.$a.'
+https://remoteavrlab-irpl.c9users.io/webclient/php/activation.php?a='.$a.'
 
 By clicking the above link, you are requesting access to the RemoteAVRLab platform.
 

@@ -1,26 +1,26 @@
-var editor;
-function dawg(text){
-		editor = CodeMirror.fromTextArea(text, 
-		{
-			lineNumbers: true,
-			lineWrapping: true,
-			mode: "text/x-csrc",
-			keymap: "sublime",
-			//minHeight: 1500,
-			autoCloseBrackets: true,
-	    	matchBrackets: true,
-	    	extraKeys: {
-        		"F11": function(cm) {
-          			cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-        		},
-        		"Esc": function(cm) {
-        			if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-        		}
-      		},
-	    	viewportMargin: Infinity
-		});
-		editor.setSize(null, "100%");
-}
+// var editor;
+// function dawg(text){
+// 		editor = CodeMirror.fromTextArea(text, 
+// 		{
+// 			lineNumbers: true,
+// 			lineWrapping: true,
+// 			mode: "text/x-csrc",
+// 			keymap: "sublime",
+// 			//minHeight: 1500,
+// 			autoCloseBrackets: true,
+// 	    	matchBrackets: true,
+// 	    	extraKeys: {
+//         		"F11": function(cm) {
+//           			cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+//         		},
+//         		"Esc": function(cm) {
+//         			if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+//         		}
+//       		},
+// 	    	viewportMargin: Infinity
+// 		});
+// 		editor.setSize(null, "100%");
+// }
 function _(el){
 	return document.getElementById(el);
 }
@@ -34,7 +34,7 @@ function uploadFile(){
 	ajax.addEventListener("load", completeHandler, false);
 	ajax.addEventListener("error", errorHandler, false);
 	ajax.addEventListener("abort", abortHandler, false);
-	ajax.open("POST", "upload.php");
+	ajax.open("POST", "php/upload.php");
 	ajax.send(formdata);
 }
 function progressHandler(event){
@@ -67,4 +67,21 @@ function errorHandler(event){
 }
 function abortHandler(event){
 	_("status").innerHTML = "Upload Aborted";
+}
+function save() {
+	var code = editor.getValue();
+	
+	var ajax = ajaxObj("POST", "php/upload.php"); 
+        ajax.onreadystatechange = function() { 
+            if(ajaxReturn(ajax) == true) { 
+                if(ajax.responseText == "changes_saved"){ 
+                	_("save").value = "Compile"; 
+                    
+                } else { 
+                    _("error").innerHTML =  ajax.responseText; 
+                } 
+            } 
+        } 
+        ajax.send("s="+code); 
+	
 }

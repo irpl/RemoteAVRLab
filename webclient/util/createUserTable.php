@@ -1,5 +1,5 @@
 <?php
-include_once("db_conx.php");
+include_once("../php/db_conx.php");
 
 $tbl_users = "CREATE TABLE users (
               id INT(11) NOT NULL AUTO_INCREMENT,
@@ -13,6 +13,7 @@ $tbl_users = "CREATE TABLE users (
 			  ip VARCHAR(255) NOT NULL,
 			  activated ENUM('0','1') NOT NULL DEFAULT '0',
 			  activation VARCHAR(74) NOT NULL,
+			  admin ENUM('0','1') NOT NULL DEFAULT '0', 
               PRIMARY KEY (id),
 			  UNIQUE KEY idnumber (idnumber,email)
              )";
