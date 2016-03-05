@@ -14,7 +14,7 @@ session_destroy();
 if(isset($_SESSION['idnumber'])){
 	header("location: message.php?msg=Error:_Logout_Failed");
 } else {
-	header("location: ../login.html");
+	header("location: ../index.php");
 	exit();
 } 
 ?>

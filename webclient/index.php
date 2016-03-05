@@ -1,3 +1,9 @@
+<?php
+include_once("php/check_login_status.php");
+if ($log_idnumber != ""){
+	header("location: user.php?i=".$log_idnumber);
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>

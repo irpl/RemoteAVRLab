@@ -75,7 +75,8 @@ function save() {
         ajax.onreadystatechange = function() { 
             if(ajaxReturn(ajax) == true) { 
                 if(ajax.responseText == "changes_saved"){ 
-                	_("save").value = "Compile"; 
+                	_("save").innerHTML = "All changes saved"; 
+                	//_("error").innerHTML = code; 
                     
                 } else { 
                     _("error").innerHTML =  ajax.responseText; 

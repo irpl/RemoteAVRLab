@@ -13,7 +13,7 @@ if(isset($_GET["i"])){
 	$i = preg_replace('#[^0-9]#i', '', $_GET['i']);
 	$e = mysqli_real_escape_string($db_conx, $_GET['e']);;
 } else {
-    header("location: login.html");
+    header("location: index.php");
     exit();	
 }
 // Select the member from the users table
@@ -81,6 +81,7 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
 <body>
 <div id="pageMiddle">
     <h1><?php echo $i; ?></h1>
+    <button id="logout" onclick="location.href='php/logout.php';"  >Log Out</button>
     <p>Is the viewer the page owner, logged in and verified? <b><?php echo $isOwner; ?></b></p>
     <p>ID Number: <?php echo $profile_idnumber; ?></p>
     <p>Name: <?php echo $profile_fname . ' ' . $profile_lname; ?></p>
@@ -124,8 +125,9 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
         
         <div id="text">
         	<div>
-        		<input id="save" type="button" value="Save" onclick="save()">
+        	    <input id="compile" type="button" value="Compile" onclick="save()">
         		<input id="program" type="button" value="Program" onclick="program()">
+        		<span id="save"></span>
         	</div>
         <textarea id="code" name="code"  rows="14" >/* Attint2313 blink program */
 int main(void)
@@ -166,8 +168,12 @@ int main(void)
         			"Esc": function(cm) {
         				if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
         			}
-        		  }
+        	    }
         	});
+        	editor.on("change", function(editor) {
+                _("save").innerHTML = "Saving...";
+                save();
+            });
         </script>
         
         </div>

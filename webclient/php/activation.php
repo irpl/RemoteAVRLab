@@ -135,7 +135,7 @@ if ((isset($_POST['id']) || isset($_GET['id'])) && (isset($_POST['i']) || isset(
 		
 You have been granted access to the RemoteAVRLab platform. 
 You may now login at 
-https://remoteavrlab-irpl.c9users.io/webclient/login.html
+https://remoteavrlab-irpl.c9users.io/webclient/index.php
 with ID number: '.$i.'.		
 
 			
