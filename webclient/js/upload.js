@@ -1,26 +1,3 @@
-// var editor;
-// function dawg(text){
-// 		editor = CodeMirror.fromTextArea(text, 
-// 		{
-// 			lineNumbers: true,
-// 			lineWrapping: true,
-// 			mode: "text/x-csrc",
-// 			keymap: "sublime",
-// 			//minHeight: 1500,
-// 			autoCloseBrackets: true,
-// 	    	matchBrackets: true,
-// 	    	extraKeys: {
-//         		"F11": function(cm) {
-//           			cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-//         		},
-//         		"Esc": function(cm) {
-//         			if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-//         		}
-//       		},
-// 	    	viewportMargin: Infinity
-// 		});
-// 		editor.setSize(null, "100%");
-// }
 function _(el){
 	return document.getElementById(el);
 }
@@ -83,6 +60,6 @@ function save() {
                 } 
             } 
         } 
-        ajax.send("s="+code); 
+        ajax.send("s="+encodeURIComponent(code)); 
 	
 }

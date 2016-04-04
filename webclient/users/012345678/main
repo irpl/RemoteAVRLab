@@ -1,0 +1,17 @@
+/*
+Author: Romario Coffie
+ID Number: 012345678
+Date: Tue Mar 22, 2016
+Title:
+*/
+
+//include libraries
+
+int main(void)
+{
+  while(1)
+  {
+    //Insert code here
+  }
+  return 0;
+}

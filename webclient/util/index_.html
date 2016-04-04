@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel=stylesheet href="CodeMirror/doc/docs.css">
+    <link rel="stylesheet" href="CodeMirror/lib/codemirror.css">
+    <link rel="stylesheet" href="CodeMirror/addon/display/fullscreen.css">
+    <!--<link rel="stylesheet" href="CodeMirror/theme/monokai.css">-->
+    
+    
+    <script src="CodeMirror/lib/codemirror.js"></script>
+    <script src="CodeMirror/mode/clike/clike.js"></script>
+    <script src="CodeMirror/keymap/sublime.js"></script>
+    <script src="CodeMirror/addon/edit/matchbrackets.js"></script>
+    <script src="CodeMirror/addon/edit/closebrackets.js"></script>
+    <script src="CodeMirror/addon/display/fullscreen.js"></script>
+    <script src="js/users.js"></script>
+    
+    <style type="text/css">
+        .sq > img{ 
+            display: block;
+        }
+        #logo{
+            height:90%;
+            margin-left:40px;
+            float:left;
+        }
+        #logout{
+            width:72px;
+            height: 28px;
+            background: #ff656c;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border: 1px solid #e15960;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-family: Montserrat, sans-serif;
+            outline: none;
+            cursor: pointer;
+            float: right;
+            margin-top:9px;
+            margin-right:30px;
+        }
+
+        #logout:hover {
+            background: #ff7b81;
+        }
+
+        
+        body, html{
+            height:100%;
+            /*margin:0px;*/
+        }
+        #top{
+            height: 55px;
+            background: #fff;
+            box-shadow: 0 0 5px rgba(57,70,78,.2);
+            box-sizing: border-box;
+            border-style: solid;
+            border-color: #fff;
+            border-bottom-color: #ff7b81;
+            /*z-index: 100;*/
+        }
+        #side{
+            width:180px;
+            background: #fff;
+            float: left;
+            position: absolute;
+            top: 55px;
+            bottom: 0;
+            z-index: -1;
+            box-sizing: border-box;
+            border-style: solid;
+            border-color: #fff;
+            border-right-color: #ff7b81;
+        }
+        #squares{
+            position: absolute;
+            top: 55px;
+            bottom: 0;
+            left:180px;
+            
+            /*z-index: -1;*/
+        }
+        .CodeMirror{
+            height:100%;
+            font-family:"Courier New", Courier, monospace;
+        }
+        .sq{
+            height:50%;
+            width:50%;
+        }
+        #r1c1{
+            resize: vertical;
+            overflow: auto;
+        }
+        #r1c1,#r2c1{
+            float:left;
+            /*resize: vertical;*/
+            /*overflow: auto;*/
+        }
+        #r1c2,#r2c2{
+            float:right;
+            /*resize: vertical;*/
+            /*overflow: auto;*/
+        }
+    </style>
+</head>
+
+<body>
+        <div id="top">
+            <a href=""><img src="img/logo-nosha.png" id="logo"></img></a>
+            <button id="logout">Logout</button>
+        </div>
+        <div id="side"></div>
+        <div id="squares">
+            <!--code editor-->
+            <div class="sq" id="r1c1" onchange="resize();">
+            <script> 
+                var code = document.getElementById("r1c1");
+                // var code = document.body;
+            	var editor = CodeMirror(code, {
+            		mode: "text/x-csrc",
+            	  	lineNumbers: true,
+            	  	// theme: "monokai",
+            	  	keyMap: "sublime",
+                    value: "int main(){}",
+            		autoCloseBrackets: true,
+            		matchBrackets: true,
+            		extraKeys: {
+            			"F11": function(cm) {
+            		  		cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+            			},
+            			"Esc": function(cm) {
+            				if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+            			}
+            	    }
+            	});
+            	editor.on("change", function(editor) {
+                    _("save").innerHTML = "Saving...";
+                    save();
+                });
+            </script>
+        </div>
+            <div class="sq" id="r1c2">
+                <!--<img src="2.jpg" alt="Smiley face" height="100%" width="100%">-->
+            </div>
+            <div class="sq" id="r2c1">
+                <!--<img src="3.jpg" alt="Smiley face" height="100%" width="100%">-->
+            </div>
+            <div class="sq" id="r2c2">
+                <!--<img src="4.jpg" alt="Smiley face" height="100%" width="100%">-->
+            </div>
+            </div>
+</body>
+</html>

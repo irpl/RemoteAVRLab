@@ -17,7 +17,7 @@ function login(){
                     _("loginbtn").style.display = "block"; 
                     
                 } else { 
-                    window.location = "user.php?i="+ajax.responseText; 
+                    window.location = "user?i="+ajax.responseText; 
                 } 
             } 
         } 

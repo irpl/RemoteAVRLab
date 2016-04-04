@@ -3,7 +3,7 @@ include_once("check_login_status.php");
 
 // If user is already logged in, header that weenis away
 if($user_ok == true){ 
-    header("location: user.php?i=".$_SESSION["idnumber"]); //pickle
+    header("location: user?i=".$_SESSION["idnumber"]); //pickle
     exit(); 
     
 } 

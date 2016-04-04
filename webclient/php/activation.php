@@ -80,7 +80,7 @@ if ((isset($_POST['id']) || isset($_GET['id'])) && (isset($_POST['i']) || isset(
 	// Connect to database and sanitize incoming $_GET variables
     //include_once("db_conx.php");
     include_once("isAdmin.php");
-    if ($id = preg_replace('#[^0-9]#i', '', $_POST['id']) != ""){
+    if (($id = preg_replace('#[^0-9]#i', '', $_POST['id'])) != ""){
 	    //$id = preg_replace('#[^0-9]#i', '', $_POST['id']); 
 		$i = preg_replace('#[^0-9]#i', '', $_POST['i']);
 		$e = mysqli_real_escape_string($db_conx, $_POST['e']);
@@ -91,8 +91,18 @@ if ((isset($_POST['id']) || isset($_GET['id'])) && (isset($_POST['i']) || isset(
 		$e = mysqli_real_escape_string($db_conx, $_GET['e']);
 		$p = mysqli_real_escape_string($db_conx, $_GET['p']);
     }
+    // check if post was sent from admin table
+    if (isset($_POST["w"])) {
+    	// Check if $w is a valid option (0 or 1)
+    	if ($w != 1 && $w != 0) {
+    		header("location: message.php?msg=invalid_option");
+    		exit(); 
+    	} else {
+    		$w = $_POST["w"];
+    	}
+    }
 	// Evaluate the lengths of the incoming $_GET variable
-	if($id == "" || strlen($i) != 9 || strlen($e) < 5 ){
+	if ($id == "" || strlen($i) != 9 || strlen($e) < 5 ){
 													//|| strlen($p) == ""
 		// Log this issue into a text file and email details to yourself
 		//echo $_POST['id'] ." ". $_POST['i'] ." ".$_POST['e'] ."f";
@@ -100,21 +110,22 @@ if ((isset($_POST['id']) || isset($_GET['id'])) && (isset($_POST['i']) || isset(
     	exit(); 
 	}
 	// Check their credentials against the database
-	$sql = "SELECT * FROM users WHERE id='$id' AND idnumber='$i' AND email='$e' AND activated='0' LIMIT 1";
+	$sql = "SELECT * FROM users WHERE id='$id' AND idnumber='$i' AND email='$e' AND activated='$w' LIMIT 1";
 																				//AND password='$p'
     $query = mysqli_query($db_conx, $sql);
 	$numrows = mysqli_num_rows($query);
 	// Evaluate for a match in the system (0 = no match, 1 = match)
 	if($numrows == 0){
 		// Log this potential hack attempt to text file and email details to yourself
+		//echo $id." ".$i." ".$e;
 		header("location: message.php?msg=Your credentials are not matching anything in our system or account may already be activated");
     	exit();
 	}
 	// Match was found, you can activate them
-	$sql = "UPDATE users SET activated='1' WHERE id='$id' LIMIT 1";
+	$sql = "UPDATE users SET activated='".(1-$w)."' WHERE id='$id' LIMIT 1";
     $query = mysqli_query($db_conx, $sql);
 	// Optional double check to see if activated in fact now = 1
-	$sql = "SELECT * FROM users WHERE id='$id' AND activated='1' LIMIT 1";
+	$sql = "SELECT * FROM users WHERE id='$id' AND activated='".(1-$w)."' LIMIT 1";
     $query = mysqli_query($db_conx, $sql);
 	$numrows = mysqli_num_rows($query);
 	// Evaluate the double check
@@ -135,7 +146,7 @@ if ((isset($_POST['id']) || isset($_GET['id'])) && (isset($_POST['i']) || isset(
 		
 You have been granted access to the RemoteAVRLab platform. 
 You may now login at 
-https://remoteavrlab-irpl.c9users.io/webclient/index.php
+https://remoteavrlab-irpl.c9users.io/webclient/
 with ID number: '.$i.'.		
 
 			

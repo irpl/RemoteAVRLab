@@ -1,0 +1,51 @@
+html, body{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+/*#tabs {*/
+    /*width: 100%;*/
+/*    position: absolute;*/
+/*    left:190px;*/
+    /*right:0;*/
+/*    float:left;*/
+/*}*/
+/*.tab {*/
+    /*width:60%;*/
+/*}*/
+
+/*#table {}*/
+table{
+    width:60%;
+    margin: auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    color: rgba(0,0,0,0.87);
+    border:none;
+    position: absolute;
+    left:190px;
+}
+
+tr:nth-child(2n+1) {
+    background-color: #ffe0e1;
+}
+
+td, th {
+    padding: 15px 5px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    border-radius: 2px;
+}
+
+.admin_button {
+    margin: 0;
+    border: 0;
+    display: block;
+    width: 100%;
+    /*float:left;*/
+}

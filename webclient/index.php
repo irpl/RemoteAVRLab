@@ -1,7 +1,7 @@
 <?php
 include_once("php/check_login_status.php");
-if ($log_idnumber != ""){
-	header("location: user.php?i=".$log_idnumber);
+if ($log_idnumber != "" && $user_ok){
+	header("location: user?i=".$log_idnumber);
 }
 ?>
 <!DOCTYPE html>
@@ -24,7 +24,7 @@ if ($log_idnumber != ""){
     	    	<p id="status"></p>
     	    	<div id="rem-reg">
     	        	<label><input type="checkbox" name="remember" value="remember" id="remember" /><span id="remember-text">Remember me</span></label>
-        	    	<span id="not-reg"><a href="registration.html">Not yet registered?</a></span>
+        	    	<span id="not-reg"><a href="registration">Not yet registered?</a></span>
     	    	</div>
     	    <button id="loginbtn" onclick="login()" >Login</button>
     	    </form>

@@ -1,0 +1,17 @@
+/*
+Author: Yekini Wallen-Bryan
+ID Number: 123456799
+Date: Fri Mar 18, 2016
+Title:
+*/
+
+//include libraries
+
+int main(void)
+{
+  while(1)
+  {
+    //Insert code here
+  }
+  return 0;
+}

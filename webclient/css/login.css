@@ -1,5 +1,5 @@
 body {
-    background: url('http://i.imgur.com/Eor57Ae.jpg') no-repeat fixed center center;
+    background: url('../img/bg.jpg') no-repeat fixed center center;
     background-size: cover;
     font-family: Montserrat;
 }
@@ -22,6 +22,7 @@ body {
     padding: 20px;
     background: #fff;
     border-radius: 5px;
+    border:1px solid #ff656c;
     border-top: 5px solid #ff656c;
     margin: 80px auto;
 }
@@ -44,7 +45,12 @@ body {
     font-size: 1em;
     color: #aaa;
     float: right;
-    text-decoration: none;
+    text-decoration:none;
+}
+
+.login-block span#not-reg a:hover{
+    color: #ff656c;
+    /*text-decoration:underline;*/
 }
 
 .login-block h1 {

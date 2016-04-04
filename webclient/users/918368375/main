@@ -1,0 +1,17 @@
+/*
+Author: Michael Jackson
+ID Number: 918368375
+Date: Fri Mar 18, 2016
+Title:
+*/
+
+//include libraries
+
+int main(void)
+{
+  while(1)
+  {
+    //Insert code here
+  }
+  return 0;
+}

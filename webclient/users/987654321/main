@@ -1,0 +1,17 @@
+/*
+Author: Kirk Spence
+ID Number: 987654321
+Date: Thu Mar 24, 2016
+Title:
+*/
+
+//include libraries
+
+int main(void)
+{
+  while(1)
+  {
+    //Insert code here
+  }
+  return 0;
+}

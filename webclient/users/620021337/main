@@ -1,0 +1,17 @@
+/*
+Author: Mu FAsa
+ID Number: 620021337
+Date: Thu Mar 31, 2016
+Title:
+*/
+
+//include libraries
+
+int main(void)
+{
+  while(1)
+  {
+    //Insert code here
+  }
+  return 0;
+}
