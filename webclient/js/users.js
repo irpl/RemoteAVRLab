@@ -84,9 +84,8 @@ function bookLab(id) {
                 alert(ajax.responseText);
                 _("smn_").innerHTML = ajax.responseText;
             } else {
-                // _("smn_").innerHTML = ajax.responseText;
-                // console.log('worked');
-                //loadLab(lab)
+                alert("Time Booked Successfully");
+                location.reload();
             }
         }
     }

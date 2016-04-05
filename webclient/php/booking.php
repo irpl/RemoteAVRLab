@@ -1,5 +1,8 @@
 <?php
 if(isset($_POST["b"]) && isset($_POST["id"]) && isset($_POST["d"]) && isset($_POST["t"])) {
+    include_once("db_conx.php");
+    date_default_timezone_set("America/Jamaica");
+
     if(is_nan($_POST["b"])) {
         echo "not_a_number";
         exit();
@@ -42,7 +45,9 @@ if(isset($_POST["b"]) && isset($_POST["id"]) && isset($_POST["d"]) && isset($_PO
         }
         $t = $HHMM[0].":".$HHMM[1].":00";
     }
-    include_once("db_conx.php");
+    
+
+    
     
     $sql = "SELECT labduration FROM lab_info WHERE labnumber='$lab_number'";
     $query = mysqli_query($db_conx, $sql);
@@ -51,17 +56,38 @@ if(isset($_POST["b"]) && isset($_POST["id"]) && isset($_POST["d"]) && isset($_PO
     }
 
     $startdatetime = $book_date ." ". $t;
-    $enddatetime = date("Y-m-d H:i:s", strtotime($startdatetime)+(60*$duration));
-    // echo $enddatetime;
-    // exit();
+    $enddatetime = date("Y-m-d H:i:s", strtotime($startdatetime)+(60*$duration)-1);
+    if(strtotime(date("Y-m-d H:i:s")) > strtotime($startdatetime)){
+        echo "too_early";
+        exit();
+    }
     
     
-    $sql = "INSERT INTO labs (idnumber, bookedLab1, bookedLab2, bookedLab3, timebooked, bookedStartTime, bookedEndTime) VALUES ('$idnumber', '$bookedlab1', '$bookedlab2', '$bookedlab3', NOW(), '$startdatetime', '$enddatetime')";
+    
+    $sql = "SELECT * FROM labs";
+    $query = mysqli_query($db_conx, $sql);
+    $numrows = mysqli_num_rows($query);
+    if($numrows > 0){
+        $sql = "SELECT bookedLab1, bookedLab2, bookedLab3, bookedStartTime, bookedEndTime FROM labs";
+        $query = mysqli_query($db_conx, $sql);
+        $new_lab = array($bookedlab1, $bookedlab2, $bookedlab3);
+        while($row = mysqli_fetch_row($query)){
+            $old_lab = array($row[0], $row[1], $row[2]);
+            if(((strtotime($enddatetime) >= strtotime($row[3])) && (strtotime($enddatetime) <= strtotime($row[4])) || (strtotime($startdatetime) >= strtotime($row[3]))) && (strtotime($startdatetime) <= strtotime($row[4])) && ($new_lab == $old_lab)){
+                echo "time_unavailable";
+                exit();
+            } 
+        }
+    }
+    $sql = "INSERT INTO labs (idnumber, bookedLab1, bookedLab2, bookedLab3, timebooked, bookedStartTime, bookedEndTime) VALUES ('$idnumber', '$bookedlab1', '$bookedlab2', '$bookedlab3', NOW(), '$startdatetime', '$enddatetime') ON DUPLICATE KEY UPDATE bookedLab1='$bookedlab1', bookedLab2='$bookedlab2', bookedLab3='$bookedlab3', timebooked=NOW(), bookedStartTime='$startdatetime', bookedEndTime='$enddatetime'";
     $query = mysqli_query($db_conx, $sql);
     
     //check if it was done
-    
-    if (true){
+    $sql = "SELECT idnumber FROM labs WHERE bookedStartTime='$startdatetime' AND bookedEndTime='$enddatetime' LIMIT 1";
+    $query = mysqli_query($db_conx, $sql);
+    $numrows = mysqli_num_rows($query);
+    $row = mysqli_fetch_row($query);
+    if ($numrows == 1 && $row[0] == $idnumber){
         echo "user_booked";    
     } else {
         echo "user_not_booked";
@@ -69,38 +95,3 @@ if(isset($_POST["b"]) && isset($_POST["id"]) && isset($_POST["d"]) && isset($_PO
     exit();
 }
 ?>
-
-<!--<!doctype html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--<meta charset="utf-8">-->
-<!--<title>jQuery UI Datepicker - Default functionality</title>-->
-    
-<!--    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">-->
-<!--    <script src="//code.jquery.com/jquery-1.10.2.js"></script>-->
-<!--    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>-->
-<!--    <script type="text/javascript" src="js/jquery.ptTimeSelect.js"></script>-->
-<!--    <link rel="stylesheet" href="/resources/demos/style.css">  -->
-<!--    <link rel="stylesheet" href="css/jquery.ptTimeSelect.css">-->
-    
-<!--    <script>-->
-<!--        $(function() {-->
-<!--            $( "#datepicker" ).datepicker();-->
-<!--        });-->
-<!--        $(document).ready(function(){-->
-            // find the input fields and apply the time select to them.
-<!--            $("#timepicker").ptTimeSelect({timeFormat: "H:i"});-->
-<!--        });-->
-<!--    </script>-->
-    
-<!--</head>-->
-<!--<body>-->
-    
-<!--<form>-->
-<!--    <div>Date: <input id="datepicker" type="text"/></div>-->
-<!--    <div>Time: <input id="timepicker" type="text"/></div>-->
-<!--    <button id="booklab" onclick="bookLab(<?php echo $profile_idnumber ?>, 1)" >Book Lab</button>-->
-<!--</form>-->
-
-<!--</body>-->
-<!--</html>-->

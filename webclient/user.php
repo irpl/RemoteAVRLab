@@ -248,7 +248,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt justo u
     </div>
     
     <div id="booking_form" style="display:none;">
-        <form>
+        <form onsubmit="return false;">
             <div>Date: <input id="datepicker" type="text"/></div>
             <div>Time: <input id="timepicker" type="text"/></div>
             <button id="booklab" onclick="bookLab(<?php echo $profile_idnumber ?>)" >Book Lab</button>
