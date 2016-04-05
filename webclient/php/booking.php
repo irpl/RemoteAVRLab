@@ -1,5 +1,5 @@
 <?php
-if(isset($_POST["b"]) && isset($_POST["id"]) && isset($_POST["d"]) && isset($_POST["t"])) {
+if(isset($_POST["b"]) && isset($_POST["id"]) && isset($_POST["dt"])) {
     include_once("db_conx.php");
     date_default_timezone_set("America/Jamaica");
 
@@ -21,30 +21,30 @@ if(isset($_POST["b"]) && isset($_POST["id"]) && isset($_POST["d"]) && isset($_PO
     }
     
     $idnumber = preg_replace('#[^0-9]#i', '', $_POST['id']);
-    $book_date = preg_replace('#[^0-9\/]#i', '', $_POST['d']);
+    $startdatetime = preg_replace('#[^0-9-: ]#i', '', $_POST['dt']);
     // $book_date = preg_replace('#[\/]#i', '-', $book_date);
-    list($m, $d, $y) = explode("/", $book_date);
-    $book_date = $y.'-'.$m.'-'.$d;
+    // list($m, $d, $y) = explode("/", $book_date);
+    // $book_date = $y.'-'.$m.'-'.$d;
     
-    $book_time = preg_replace('#[^0-9:APM]#i', '', $_POST['t']);
+    // $book_time = preg_replace('#[^0-9:APM]#i', '', $_POST['t']);
     
-    $ampm = substr($book_time, -2);
-    $time = substr($book_time, 0, -2);
-    $HHMM = explode(":", $time);
+    // $ampm = substr($book_time, -2);
+    // $time = substr($book_time, 0, -2);
+    // $HHMM = explode(":", $time);
     
-    if(substr($book_time, -2) == "AM") {
-        if ($HHMM[0] == "12"){
-            $HHMM[0] = "00";
-            $t = $HHMM[0].":".$HHMM[1].":00";
-        } else {
-            $t = $time.":00";
-        }
-    } else if(substr($book_time, -2) == "PM"){
-        if ($HHMM[0] != "12"){
-            $HHMM[0] += 12; 
-        }
-        $t = $HHMM[0].":".$HHMM[1].":00";
-    }
+    // if(substr($book_time, -2) == "AM") {
+    //     if ($HHMM[0] == "12"){
+    //         $HHMM[0] = "00";
+    //         $t = $HHMM[0].":".$HHMM[1].":00";
+    //     } else {
+    //         $t = $time.":00";
+    //     }
+    // } else if(substr($book_time, -2) == "PM"){
+    //     if ($HHMM[0] != "12"){
+    //         $HHMM[0] += 12; 
+    //     }
+    //     $t = $HHMM[0].":".$HHMM[1].":00";
+    // }
     
 
     
@@ -55,14 +55,11 @@ if(isset($_POST["b"]) && isset($_POST["id"]) && isset($_POST["d"]) && isset($_PO
         $duration = $row[0];
     }
 
-    $startdatetime = $book_date ." ". $t;
     $enddatetime = date("Y-m-d H:i:s", strtotime($startdatetime)+(60*$duration)-1);
     if(strtotime(date("Y-m-d H:i:s")) > strtotime($startdatetime)){
         echo "too_early";
         exit();
     }
-    
-    
     
     $sql = "SELECT * FROM labs";
     $query = mysqli_query($db_conx, $sql);

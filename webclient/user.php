@@ -72,14 +72,7 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
 <script src="CodeMirror/addon/edit/closebrackets.js"></script>
 <script src="CodeMirror/addon/display/fullscreen.js"></script>
 <link href="css/user.css" rel="stylesheet" type="text/css">
-<script src="js/ajax.js"></script>
-<script src="js/users.js"></script>
-<script src="js/upload.js"></script>
-<script src="js/timer.js"></script>
-<!--<script src="//mrrio.github.io/jsPDF/dist/jspdf.debug.js"></script>-->
-<!--<link rel="stylesheet" href="style/style.css">-->
-<!--<script src="js/main.js"></script>-->
-<!--<script src="js/ajax.js"></script>-->
+
 
 
 <!--booking-->
@@ -101,11 +94,21 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
     </script>
 <!---->
 
+<!--fullcalendar-->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.1/fullcalendar.js"></script>
+<!---->
 
+<script src="js/ajax.js"></script>
+<script src="js/users.js"></script>
+<script src="js/upload.js"></script>
+<script src="js/timer.js"></script>
 
 </head>
 <body>
-<div id="pageMiddle">
+
+    
     <!--<h1><?php echo $i; ?></h1>-->
     <!--<button id="logout" onclick="location.href='php/logout.php';"  >Log Out</button>-->
     <!--<p>Is the viewer the page owner, logged in and verified? <b><?php echo $isOwner; ?></b></p>-->
@@ -114,6 +117,7 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
     <!--<p>Email: <?php echo $profile_email; ?></p>-->
     <!--<p>Join Date: <?php echo $joindate; ?></p>-->
     <!--<p>Last Session: <?php echo $lastsession; ?></p>-->
+    
     
     <div id="top">
         <a href=""><img src="img/logo-nosha.png" id="logo"></img></a>
@@ -141,215 +145,200 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
         </div>
     </div>
     
-   
-   <?php
-        date_default_timezone_set("America/Jamaica");
-        $now = new DateTime(date("Y-m-d H:i:s"));
-        $result0 = $now->format('Y-m-d H:i:s');
-        
-        $sql = "SELECT * FROM labs WHERE idnumber='$profile_idnumber'";
-        $query = mysqli_query($db_conx, $sql);
-        $numrows = mysqli_num_rows($query);
-        if ($numrows > 0){
-            while($row=mysqli_fetch_row($query)){
-                $booked_lab1 = $row[1];
-                $booked_lab2 = $row[2];
-                $booked_lab3 = $row[3];
-                $start_time = new DateTime($row[5]);
-                $result1 = $start_time->format('Y-m-d H:i:s');
+   <div id="pageMiddle">
+       <?php
+            date_default_timezone_set("America/Jamaica");
+            $now = new DateTime(date("Y-m-d H:i:s"));
+            $result0 = $now->format('Y-m-d H:i:s');
+            
+            $sql = "SELECT * FROM labs WHERE idnumber='$profile_idnumber'";
+            $query = mysqli_query($db_conx, $sql);
+            $numrows = mysqli_num_rows($query);
+            if ($numrows > 0){
+                while($row=mysqli_fetch_row($query)){
+                    $booked_lab1 = $row[1];
+                    $booked_lab2 = $row[2];
+                    $booked_lab3 = $row[3];
+                    $start_time = new DateTime($row[5]);
+                    $result1 = $start_time->format('Y-m-d H:i:s');
+                    
+                    $end_time = new DateTime($row[6]);
+                    $result2 = $end_time->format('Y-m-d H:i:s');
+    
+                }
                 
-                $end_time = new DateTime($row[6]);
-                $result2 = $end_time->format('Y-m-d H:i:s');
-
-            }
-            
-            if($booked_lab1 == 1){
-                if($now < $start_time){ //too early
-                    $button1_html = "<button id='lab1'>too early</button>";
-                } else if(($now > $start_time) && ($now < $end_time)) { // time started ans not yet finished
-                    $button1_html = "<button id='lab1' onclick='loadLab(1)' >Start Lab 1</button>";
-                } else if ($now > $end_time) {
-                    $button1_html = "<button id='lab1' onclick='chooseTime(this)' >Choose time</button>";
+                if($booked_lab1 == 1){
+                    if($now < $start_time){ //too early
+                        $button1_html = "<button id='lab1'>too early</button>";
+                    } else if(($now > $start_time) && ($now < $end_time)) { // time started ans not yet finished
+                        $button1_html = "<button id='lab1' onclick='loadLab(1)' >Start Lab 1</button>";
+                    } else if ($now > $end_time) {
+                        $button1_html = "<button id='lab1' onclick='chooseTime(this)' >Book Me</button>";
+                    }
+                } else {
+                    $button1_html = "<button id='lab1' onclick='chooseTime(this)' >Book Me</button>";
+                }
+                
+                if($booked_lab2 == 1){
+                    if($now < $start_time){ //too early
+                        $button2_html = "<button id='lab2'>too early</button>";
+                    } else if(($now > $start_time) && ($now < $end_time)) { // time started ans not yet finished
+                        $button2_html = "<button id='lab2' onclick='loadLab(2)' >Start Lab 2</button>";
+                    } else if ($now > $end_time) {
+                        $button2_html = "<button id='lab2' onclick='chooseTime(this)' >Book Me</button>";
+                    }
+                } else {
+                    $button2_html = "<button id='lab2' onclick='chooseTime(this)' >Book Me </button>";
+                }
+                
+                if($booked_lab3 == 1){
+                    if($now < $start_time){ //too early
+                        $button3_html = "<button id='lab3'>Too Early</button>";
+                    } else if(($now > $start_time) && ($now < $end_time)) { // time started ans not yet finished
+                        $button3_html = "<button id='lab3' onclick='loadLab(3)' >Start Lab 3</button>";
+                    } else if ($now > $end_time) {
+                        $button3_html = "<button id='labs' onclick='chooseTime(this)' >Book Me</button>";
+                    }
+                } else {
+                    $button3_html = "<button id='lab3' onclick='chooseTime(this)' >Book Me</button>";
                 }
             } else {
-                $button1_html = "<button id='lab1' onclick='chooseTime(this)' >Choose time</button>";
+                $button1_html = "<button id='lab1' onclick='chooseTime(this)' >Book Me</button>";
+                $button2_html = "<button id='lab2' onclick='chooseTime(this)' >Book Me</button>";
+                $button3_html = "<button id='lab3' onclick='chooseTime(this)' >Book Me</button>";
             }
-            
-            if($booked_lab2 == 1){
-                if($now < $start_time){ //too early
-                    $button2_html = "<button id='lab2'>too early</button>";
-                } else if(($now > $start_time) && ($now < $end_time)) { // time started ans not yet finished
-                    $button2_html = "<button id='lab2' onclick='loadLab(2)' >Start Lab 2</button>";
-                } else if ($now > $end_time) {
-                    $button2_html = "<button id='lab2' onclick='chooseTime(this)' >Choose time</button>";
-                }
-            } else {
-                $button2_html = "<button id='lab2' onclick='chooseTime(this)' >Choose time </button>";
-            }
-            
-            if($booked_lab3 == 1){
-                if($now < $start_time){ //too early
-                    $button3_html = "<button id='lab3'>Too Early</button>";
-                } else if(($now > $start_time) && ($now < $end_time)) { // time started ans not yet finished
-                    $button3_html = "<button id='lab3' onclick='loadLab(3)' >Start Lab 3</button>";
-                } else if ($now > $end_time) {
-                    $button3_html = "<button id='labs' onclick='chooseTime(this)' >Choose time</button>";
-                }
-            } else {
-                $button3_html = "<button id='lab3' onclick='chooseTime(this)' >Choose Time</button>";
-            }
-        } else {
-            $button1_html = "<button id='lab1' onclick='chooseTime(this)' >Choose Time</button>";
-            $button2_html = "<button id='lab2' onclick='chooseTime(this)' >Choose Time</button>";
-            $button3_html = "<button id='lab3' onclick='chooseTime(this)' >Choose Time</button>";
-        }
-   ?>
-   
-   
-    <div id=lab_defn>
-        <h3>Lab 1</h3>
-        <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt justo ut augue ultricies ultricies. Pellentesque sit amet velit non justo convallis tristique. Mauris convallis orci in urna fermentum, non auctor turpis fermentum. Donec quis metus in massa volutpat vestibulum. Curabitur ornare, metus id faucibus euismod, risus lorem ultrices arcu, non ornare est urna sit amet libero. In eget sagittis felis. In sit amet enim tellus. Nullam rutrum iaculis tristique. Aliquam ut sodales nulla. Suspendisse rutrum lorem a arcu faucibus dictum eget posuere neque.
-</p>
-        <p>
-        Nullam et semper nibh. Vivamus enim orci, venenatis quis dictum tincidunt, molestie ac augue. Mauris vitae nisl et tellus aliquet finibus nec blandit nisi. Vestibulum pharetra, elit sit amet ornare egestas, nisl augue volutpat felis, et venenatis est ligula ut arcu. Maecenas enim nulla, finibus quis quam quis, eleifend commodo dui. Vestibulum nec erat vitae neque sollicitudin viverra. Donec nisi augue, lobortis eget lorem eget, faucibus volutpat arcu. Cras gravida suscipit purus, in ullamcorper nibh tristique ut. Integer et tincidunt mauris. Donec convallis varius vehicula. Donec pulvinar tellus nunc, sit amet aliquam purus varius nec. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris facilisis euismod interdum.
-</p>
-        <p>
-        Praesent rutrum lectus eu finibus eleifend. Morbi diam urna, commodo sed sodales vitae, porttitor id est. In a tortor vel lorem bibendum hendrerit. Quisque sem risus, elementum et convallis id, gravida quis dui. Mauris ac bibendum tortor. Vestibulum aliquam consectetur quam vitae suscipit. Sed ut justo id ante finibus fringilla. In laoreet ac orci non malesuada. Praesent a leo bibendum, efficitur turpis ut, volutpat tellus. Maecenas a semper turpis. Integer vel rutrum est, consequat ullamcorper nulla.
-</p>
-        <!--<button id="lab1" onclick="chooseTime()" >Lab 1</button>-->
-        <?php echo $button1_html;?>
+       ?>
+        <table id=lab_defn>
+            <tr>
+                <td>
+                    <h1>Lab 1</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt justo ut augue ultricies ultricies. Pellentesque sit amet velit non justo convallis tristique. Mauris convallis orci in urna fermentum, non auctor turpis fermentum. Donec quis metus in massa volutpat vestibulum. Curabitur ornare, metus id faucibus euismod, risus lorem ultrices arcu, non ornare est urna sit amet libero. In eget sagittis felis. In sit amet enim tellus. Nullam rutrum iaculis tristique. Aliquam ut sodales nulla. Suspendisse rutrum lorem a arcu faucibus dictum eget posuere neque.
+                    </p>
+                    <?php echo $button1_html;?>
+                </td>
+                <td>
+                    <h1>Lab 2</h1>
+                    <p>
+                        Nam tristique vitae nulla id placerat. Morbi eu blandit eros. Suspendisse eu laoreet dolor. Cras nec ante vel nunc gravida volutpat eget lacinia sapien. In finibus euismod imperdiet. Nullam efficitur malesuada imperdiet. Integer id libero et orci facilisis pellentesque sit amet eu mi.
+                    </p>
+                    <?php echo $button2_html;?>
+                </td>
+                <td>
+                    <h1>Lab 3</h1>
+                    <p>
+                        Integer dignissim ultrices purus sit amet tempus. Phasellus varius, est a iaculis dictum, felis nisl hendrerit metus, ac suscipit quam urna et mi. Fusce libero est, sagittis vel diam non, convallis mollis sem. Aliquam ornare blandit ipsum, id consequat libero fringilla ac. Cras et ullamcorper turpis, et dapibus nisi. Duis varius ipsum et cursus porta. Ut fringilla massa lacus, vel venenatis nisi dictum sit amet. Sed ut dolor id arcu imperdiet dictum sed at turpis. Cras porttitor rutrum tristique. Sed venenatis augue ut odio gravida, id interdum augue scelerisque. Pellentesque egestas dignissim odio sit amet varius. Proin facilisis viverra metus nec euismod.
+                    </p>
+                    <?php echo $button3_html;?>
+                </td>
+            </tr>
+        </table>
         
-        <h3>Lab 2</h3>
-        <p>
-        Nam tristique vitae nulla id placerat. Morbi eu blandit eros. Suspendisse eu laoreet dolor. Cras nec ante vel nunc gravida volutpat eget lacinia sapien. In finibus euismod imperdiet. Nullam efficitur malesuada imperdiet. Integer id libero et orci facilisis pellentesque sit amet eu mi.
-</p>
-        <p>
-        Vestibulum a orci vitae enim vehicula fringilla sed tincidunt sapien. Duis felis mi, mollis sed felis vel, ullamcorper finibus odio. Curabitur vitae ligula tristique, dignissim augue non, pretium tortor. Sed consequat, neque sit amet congue dignissim, nisl ligula commodo elit, vel posuere nunc nisl non leo. Cras tristique vel magna consectetur efficitur. Vivamus vel bibendum felis, sed rhoncus velit. Duis iaculis eu ante ac tristique. Nunc faucibus ac nibh at porttitor. Nullam scelerisque lacus in orci fermentum tempor. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-</p>
-        <p>
-        Vivamus et varius velit, quis tempus nibh. Donec ultricies magna quis erat dapibus tincidunt. Mauris hendrerit, est sit amet efficitur scelerisque, sem felis suscipit enim, in rutrum justo diam ut turpis. Donec elementum sit amet ante vitae dignissim. Cras iaculis elit at neque suscipit blandit. Sed a sapien nec lectus suscipit mattis et in elit. Etiam commodo suscipit rhoncus.
-</p>
-        <!--<button id="lab2" onclick="loadLab(2)" >Lab 2</button>-->
-        <?php echo $button2_html;?>
-        
-        <h3>Lab 3</h3>
-        <p>
-        Integer dignissim ultrices purus sit amet tempus. Phasellus varius, est a iaculis dictum, felis nisl hendrerit metus, ac suscipit quam urna et mi. Fusce libero est, sagittis vel diam non, convallis mollis sem. Aliquam ornare blandit ipsum, id consequat libero fringilla ac. Cras et ullamcorper turpis, et dapibus nisi. Duis varius ipsum et cursus porta. Ut fringilla massa lacus, vel venenatis nisi dictum sit amet. Sed ut dolor id arcu imperdiet dictum sed at turpis. Cras porttitor rutrum tristique. Sed venenatis augue ut odio gravida, id interdum augue scelerisque. Pellentesque egestas dignissim odio sit amet varius. Proin facilisis viverra metus nec euismod.
-</p>
-        <p>
-        Suspendisse nunc ex, lacinia vitae nibh vel, mattis posuere lacus. Morbi facilisis ante sed laoreet fringilla. Integer metus nisl, condimentum ut fringilla vitae, venenatis nec sem. Nullam vel elit nibh. Duis lobortis tristique lacinia. Suspendisse dignissim convallis ultrices. Nunc ornare egestas dui quis dapibus. Mauris at dapibus lectus. Vestibulum eget molestie est. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris hendrerit blandit vestibulum. Fusce non aliquet massa. Donec eu lectus non nisi semper tincidunt in a urna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum at aliquam mi. Maecenas ornare sit amet nisi ut luctus.
-</p>
-        <p>
-        Curabitur at facilisis nisi. Nulla eu eros nulla. Quisque tristique dui ac quam tincidunt cursus. Sed placerat ante quam, non viverra nulla pharetra quis. Vestibulum feugiat, mauris in volutpat vestibulum, nisi eros convallis magna, ut vestibulum velit diam non tellus. Suspendisse nisl massa, rutrum vel hendrerit sit amet, ullamcorper non nisi. Proin lobortis facilisis elit at eleifend. Ut dapibus tempor urna eget mollis. Maecenas imperdiet arcu malesuada massa suscipit, vitae scelerisque justo dictum. Sed laoreet enim molestie nunc ullamcorper fermentum. Donec eleifend lorem non augue tincidunt, sed vulputate lectus blandit.
-</p>
-        <!--<button id="lab3" onclick="loadLab(3)" >Lab 3</button>-->
-        <?php echo $button3_html;?>
-    </div>
-    
-    <div id="booking_form" style="display:none;">
-        <form onsubmit="return false;">
-            <div>Date: <input id="datepicker" type="text"/></div>
-            <div>Time: <input id="timepicker" type="text"/></div>
-            <button id="booklab" onclick="bookLab(<?php echo $profile_idnumber ?>)" >Book Lab</button>
-        </form>
-    </div>
-    <div id="smn_" style="position:absolute; top:200px; left:190px;"></div>
-
-    <?php
-        if ($isOwner == "no"){
-            ?>
-                <script type="text/javascript">
-                    _("lab_defn").style.display="none";
-                    _("upload_buttons").style.display="none";
-                    _("lab_number").innerHTML = "Lab Outline";
-                    _("fname").innerHTML = "";
-                    _("logout").style.display = "none";
-                </script>
-            <?php
-        }
-    ?>
-    
-    <div id="loading">
-        <span>Hi there<br/>Your lab is coming right up</span><br/>
-        <img src="img/loading.gif"></img>
-    </div>
-    
-    
-    <div id="lab">
-        <!--<div id="top">-->
-        <!--    <a href=""><img src="img/logo-nosha.png" id="logo"></img></a>-->
-        <!--    <button id="logout">Logout</button>-->
+        <!--<div id="booking_form" style="display:none;">-->
+        <!--    <form onsubmit="return false;">-->
+        <!--        <div>Date: <input id="datepicker" type="text"/></div>-->
+        <!--        <div>Time: <input id="timepicker" type="text"/></div>-->
+        <!--        <button id="booklab" onclick="bookLab(<?php //echo $profile_idnumber ?>)" >Book Lab</button>-->
+        <!--    </form>-->
         <!--</div>-->
-        <!--<div id="side"></div>-->
-        <div id="squares">
-            <!--code editor-->
-            <div class="sq" id="r1c1">
-                <div id="control_buttons" >
-            	    <span id="save"></span>
-            	    <input id="compile" type="button" value="Compile" onclick="program(<?php echo $log_idnumber; ?>,'c')">
-            		<input id="program" type="button" value="Program" onclick="program(<?php echo $log_idnumber; ?>,'p')">
-            	</div>
-                <script> 
-                    var code = document.getElementById("r1c1");
-                    
-                    <?php date_default_timezone_set("America/Jamaica");?>
-                    
-                    var startingCode = '/*\nAuthor: <?php echo $profile_fname." ".$profile_lname;?>\nID Number: <?php echo $profile_idnumber;?>\nDate: <?php echo date('D M j, Y');?>\nTitle:\n*/\n\n//include libraries\n\nint main(void)\n{\n  while(1)\n  {\n    //Insert code here\n  }\n  return 0;\n}'
-                    // var code = document.body;
-                	var editor = CodeMirror(code, {
-                		mode: "text/x-csrc",
-                	  	lineNumbers: true,
-                	  	// theme: "monokai",
-                	  	keyMap: "sublime",
-                        value: startingCode,
-                		autoCloseBrackets: true,
-                		matchBrackets: true,
-                		extraKeys: {
-                			"F11": function(cm) {
-                		  		cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-                			},
-                			"Esc": function(cm) {
-                				if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-                			}
-                	    }
-                	});
-                	editor.on("change", function(editor) {
-                        _("save").innerHTML = "Saving...";
-                        save();
-                    });
-                </script>
+        <div id="user_id" style="display:none;"><?php echo $profile_idnumber ?></div>
+        <div id="calendar" style="display:none;"></div>
+        
+        <!--<div id="smn_" style="position:absolute; top:200px; left:190px;"></div>-->
+    
+        <?php
+            if ($isOwner == "no"){
+                ?>
+                    <script type="text/javascript">
+                        _("lab_defn").style.display="none";
+                        _("upload_buttons").style.display="none";
+                        _("lab_number").innerHTML = "Lab Outline";
+                        _("fname").innerHTML = "";
+                        _("logout").style.display = "none";
+                    </script>
+                <?php
+            }
+        ?>
+        
+        <div id="loading">
+            <span>Hi there<br/>Your lab is coming right up</span><br/>
+            <img src="img/loading.gif"></img>
         </div>
-            
-            <!--video window-->
-            <div class="sq" id="r1c2">
-                <!--<img src="2.jpg" alt="Smiley face" height="100%" width="100%">-->
-                <div id="live">
-        	        <!--<iframe width="660" height="400" src="https://www.youtube.com/embed/_z84FvCSlaw" scrolling="no" frameborder="0">-->
-        	        <!--<iframe height="100%" width="100%" src="http://72.252.157.203:8081" frameborder="0" allowfullscreen style="display:block"></iframe>-->
-        	        <img height="100%" width="100%" src="http://72.252.157.203:8081" style="display:block"></img>
-        		        <!--<p>Your browser does not support iframes.</p>-->
-        	        </iframe>
+        
+        
+        <div id="lab">
+            <!--<div id="top">-->
+            <!--    <a href=""><img src="img/logo-nosha.png" id="logo"></img></a>-->
+            <!--    <button id="logout">Logout</button>-->
+            <!--</div>-->
+            <!--<div id="side"></div>-->
+            <div id="squares">
+                <!--code editor-->
+                <div class="sq" id="r1c1">
+                    <div id="control_buttons" >
+                	    <span id="save"></span>
+                	    <input id="compile" type="button" value="Compile" onclick="program(<?php echo $log_idnumber; ?>,'c')">
+                		<input id="program" type="button" value="Program" onclick="program(<?php echo $log_idnumber; ?>,'p')">
+                	</div>
+                    <script> 
+                        var code = document.getElementById("r1c1");
+                        
+                        <?php date_default_timezone_set("America/Jamaica"); ?>
+                        
+                        var startingCode = '/*\nAuthor: <?php echo $profile_fname." ".$profile_lname;?>\nID Number: <?php echo $profile_idnumber;?>\nDate: <?php echo date('D M j, Y');?>\nTitle:\n*/\n\n//include libraries\n\nint main(void)\n{\n  while(1)\n  {\n    //Insert code here\n  }\n  return 0;\n}'
+                        // var code = document.body;
+                    	var editor = CodeMirror(code, {
+                    		mode: "text/x-csrc",
+                    	  	lineNumbers: true,
+                    	  	// theme: "monokai",
+                    	  	keyMap: "sublime",
+                            value: startingCode,
+                    		autoCloseBrackets: true,
+                    		matchBrackets: true,
+                    		extraKeys: {
+                    			"F11": function(cm) {
+                    		  		cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                    			},
+                    			"Esc": function(cm) {
+                    				if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+                    			}
+                    	    }
+                    	});
+                    	editor.on("change", function(editor) {
+                            _("save").innerHTML = "Saving...";
+                            save();
+                        });
+                    </script>
+            </div>
+                
+                <!--video window-->
+                <div class="sq" id="r1c2">
+                    <!--<img src="2.jpg" alt="Smiley face" height="100%" width="100%">-->
+                    <div id="live">
+            	        <!--<iframe width="660" height="400" src="https://www.youtube.com/embed/_z84FvCSlaw" scrolling="no" frameborder="0">-->
+            	        <!--<iframe height="100%" width="100%" src="http://72.252.157.203:8081" frameborder="0" allowfullscreen style="display:block"></iframe>-->
+            	        <img height="100%" width="100%" src="http://72.252.157.203:8081" style="display:block"></img>
+            		        <!--<p>Your browser does not support iframes.</p>-->
+            	        </iframe>
+                    </div>
+                </div>
+                
+                <!--console output-->
+                <div class="sq" id="r2c1">
+                    <span id="console_label">console@RemoteAVRLab:~$</span>
+                    <textarea id="output" rows="100" cols="105" readonly>&#13;&#10;&#13;&#10;</textarea>
+                </div>
+                
+                <!--pdf-->
+                <div class="sq" id="r2c2">
+                    <!--<img src="4.jpg" alt="Smiley face" height="100%" width="100%">-->
+                    <!--<div height="100%">-->
+                        <iframe id="lab_iframe" src="" height="100%" width="100%" style="display:block;"></iframe>
+                        
+                    <!--</div>-->
                 </div>
             </div>
-            
-            <!--console output-->
-            <div class="sq" id="r2c1">
-                <span id="console_label">console@RemoteAVRLab:~$</span>
-                <textarea id="output" rows="100" cols="105" readonly>&#13;&#10;&#13;&#10;</textarea>
-            </div>
-            
-            <!--pdf-->
-            <div class="sq" id="r2c2">
-                <!--<img src="4.jpg" alt="Smiley face" height="100%" width="100%">-->
-                <!--<div height="100%">-->
-                    <iframe id="lab_iframe" src="" height="100%" width="100%" style="display:block;"></iframe>
-                    
-                <!--</div>-->
-            </div>
         </div>
     </div>
-    
-</div>
 </body>
 </html>

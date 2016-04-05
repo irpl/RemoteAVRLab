@@ -18,7 +18,7 @@ if(isset($_POST["y"])) {
     }
     
     $sftp->exec("/home/odroid/bin/ykush -d a");
-    $sftp->exec("/home/odroid/bin/ykush -u 1");/*$port*/
+    $sftp->exec("/home/odroid/bin/ykush -u ".$port);/*$port*/
     $sftp->exec("exit");
     
     echo "loaded_lab".$port;
@@ -49,8 +49,8 @@ if ((isset($_POST['p']) || isset($_POST['c'])) && isset($_POST["l"])){
         $dir = "t85_test";
         $file = "main.S";
     } else if (intval($l) == 2){
-        // $dir = "attiny2313_test";
-        $dir = "t85_test";
+        $dir = "attiny2313_test";
+        // $dir = "t85_test";
         $file = "main.c";
     } else {
         echo '$l is '.$_POST['l'];

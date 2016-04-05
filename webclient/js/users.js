@@ -64,17 +64,45 @@ function program(idnumber, what) {
         }
         ajax.send(what+"="+i+"&l="+lab_number);
 }
-
 var which_lab;
+var datetime;
+function initfullCallendar() {
+    // page is now ready, initialize the calendar...
+    $('#calendar').fullCalendar({
+        // put your options and callbacks here
+        dayClick: function(date, jsEvent, view, resourceObj) {
+    
+            console.log('Date: ' + date.format());
+            
+            var view = $('#calendar').fullCalendar('getView');
+            if(view.name == "month"){
+                $("#calendar").fullCalendar( "changeView", "agendaDay");
+                $("#calendar").fullCalendar( 'gotoDate', date.format() );
+            }
+            if (view.name == "agendaDay"){
+                datetime = date.format().replace("T", " ");
+                if(confirm("You've chosen "+datetime+" as you lab time slot,\nIs this ok?")){
+                    bookLab(datetime);
+                }
+            }
+        }
+    })
+}
+
+
 function chooseTime(ele) {
     _("lab_defn").style.display = "none";
-    _("booking_form").style.display = "block";
+    // _("booking_form").style.display = "block";
+    initfullCallendar();
+    _("calendar").style.display = "block";
+    $("#calendar").fullCalendar("today");
+
     which_lab = ele.id.slice(-1);
 }
 
-function bookLab(id) {
-    var date = _("datepicker").value;
-    var time = _("timepicker").value;
+
+function bookLab(dt) {
+    var id = _("user_id").innerHTML;
     
     var ajax = ajaxObj("POST", "php/booking.php");
     ajax.onreadystatechange = function() {
@@ -89,6 +117,6 @@ function bookLab(id) {
             }
         }
     }
-    ajax.send("b="+which_lab+"&id="+id+"&d="+date+"&t="+time);
+    ajax.send("b="+which_lab+"&id="+id+"&dt="+dt);
 }
 

@@ -210,12 +210,12 @@ body, html{
 }
 #squares{
     position: absolute;
-    top: 55px;
+    top: 0px;
     bottom: 0;
-    left:190px;
-    right:0;
-    /*width:100%;*/
-    /*z-index: -1;*/
+    /* left: 0px; */
+    /* right: 0; */
+    /* width: 100%; */
+    /* z-index: -1; */
 }
 
 .sq{
@@ -262,11 +262,39 @@ iframe{
     /*display:block;*/
 }
 #lab_defn {
+    /*position: absolute;*/
+    /*top: 55px;*/
+    /*left: 190px;*/
+    /*right: 0;*/
+    /*bottom: 0;*/
+    /*display:block;*/
+    border-spacing: 10px;
+    /*overflow: scroll;*/
+    /*overflow-x: hidden;*/
+}
+#lab_defn td{
+    width: 33%;
+    height:50%;
+    vertical-align: top;
+    background-color: white;
+    padding:30px;
+}
+
+#calendar{
+    /*position: absolute;*/
+    /*top:0px;*/
+    /*left:190px;*/
+    /*right:0;*/
+    /*bottom:0;*/
+}
+#pageMiddle{
+    /* height: 100%; */
+    overflow: auto;
+    /*overflow-x: hidden;*/
     position: absolute;
     top: 55px;
+    bottom: 0px; 
     left: 190px;
-    right: 0;
-    bottom: 0;
-    overflow: scroll;
-    overflow-x: hidden;
+    right: 0px;
+    /* z-index: -1; */
 }
