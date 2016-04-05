@@ -16,7 +16,8 @@ html, body{
 
 /*#table {}*/
 table{
-    width:60%;
+    /*table-layout: fixed;*/
+    width: 100%;
     margin: auto;
     border-collapse: collapse;
     border-spacing: 0;
@@ -25,9 +26,9 @@ table{
     font-family: "Roboto", sans-serif;
     font-weight: normal;
     color: rgba(0,0,0,0.87);
-    border:none;
+    border: none;
     position: absolute;
-    left:190px;
+    /* left: 190px; */
 }
 
 tr:nth-child(2n+1) {
@@ -47,5 +48,21 @@ td, th {
     border: 0;
     display: block;
     width: 100%;
-    /*float:left;*/
+    border-radius: 0;
+    border-width: 2px;
+    margin-bottom: 3px;
+}
+#tabs{
+    position: absolute;
+    top: 55px;
+    left: 190px;
+    right: 0px;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+#search{
+    float: right;
+    margin-right:26px;
+    margin-top: 13px;
 }

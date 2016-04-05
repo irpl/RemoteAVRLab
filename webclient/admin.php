@@ -47,7 +47,8 @@ if (isset($_POST['d']) && isset($_POST['i']) && isset($_POST['e']) ){
     <a href=""><img src="img/logo-nosha.png" id="logo"></img></a>
     <span class="lab_top_text" id="lab_number">Admin Control</span>
     <button id="logout" onclick="location.href='php/logout';">Logout</button>
-    <span class="lab_top_text" id="fname"><?php echo $profile_fname ?></span>
+    <form onsubmit="return false;"><input type="text" id="search" placeholder="Search User"/></form>
+    <!--<span class="lab_top_text" id="fname"><?php echo $profile_fname ?></span>-->
 </div>
 <div id="side">
     <div id="admin_buttons">
@@ -98,6 +99,7 @@ if (isset($_POST['d']) && isset($_POST['i']) && isset($_POST['e']) ){
 		<div id="status"></div>
 	</div>
 	<div class="tab" id="stats" style="display:none;">
+		stats table
 		<table>
 			
 		</table>

@@ -207,6 +207,8 @@ body, html{
     border-style: solid;
     border-color: #fff;
     border-right-color: #ff7b81;
+    border-left:0px;
+    border-top:0px;
 }
 #squares{
     position: absolute;
@@ -278,6 +280,7 @@ iframe{
     vertical-align: top;
     background-color: white;
     padding:30px;
+    padding-top:0;
 }
 
 #calendar{
