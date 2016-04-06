@@ -64,40 +64,19 @@ function program(idnumber, what) {
         }
         ajax.send(what+"="+i+"&l="+lab_number);
 }
-var which_lab;
-var datetime;
-function initfullCallendar() {
-    // page is now ready, initialize the calendar...
-    $('#calendar').fullCalendar({
-        // put your options and callbacks here
-        dayClick: function(date, jsEvent, view, resourceObj) {
-    
-            console.log('Date: ' + date.format());
-            
-            var view = $('#calendar').fullCalendar('getView');
-            if(view.name == "month"){
-                $("#calendar").fullCalendar( "changeView", "agendaDay");
-                $("#calendar").fullCalendar( 'gotoDate', date.format() );
-            }
-            if (view.name == "agendaDay"){
-                datetime = date.format().replace("T", " ");
-                if(confirm("You've chosen "+datetime+" as you lab time slot,\nIs this ok?")){
-                    bookLab(datetime);
-                }
-            }
-        }
-    })
-}
+
+
 
 
 function chooseTime(ele) {
     _("lab_defn").style.display = "none";
     // _("booking_form").style.display = "block";
+    which_lab = ele.id.slice(-1);
     initfullCallendar();
     _("calendar").style.display = "block";
     $("#calendar").fullCalendar("today");
 
-    which_lab = ele.id.slice(-1);
+    
 }
 
 
@@ -108,9 +87,19 @@ function bookLab(dt) {
     ajax.onreadystatechange = function() {
         if(ajaxReturn(ajax) == true) {
             if(ajax.responseText != "user_booked"){
-                //console.log(ajax.responseText);
-                alert(ajax.responseText);
-                _("smn_").innerHTML = ajax.responseText;
+                if(ajax.responseText == "time_unavailable"){
+                    alert("That time clashes with a previously occupied booking\nPlease choose a different time");
+                }
+                if(ajax.responseText == "too_early"){
+                    alert("You may not book a time slot that starts in the past\nPlease choose a different time");
+                }
+                if(ajax.responseText == "not_a_number"){
+                    alert("An error occured\nPlease contact an administrator(error: NaN)");
+                }
+                if(ajax.responseText == "user_not_booked"){
+                    alert("An error occured\nPlease contact an administrator");
+                }
+                //_("smn_").innerHTML = ajax.responseText;
             } else {
                 alert("Time Booked Successfully");
                 location.reload();

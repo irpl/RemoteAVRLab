@@ -22,33 +22,7 @@ if(isset($_POST["b"]) && isset($_POST["id"]) && isset($_POST["dt"])) {
     
     $idnumber = preg_replace('#[^0-9]#i', '', $_POST['id']);
     $startdatetime = preg_replace('#[^0-9-: ]#i', '', $_POST['dt']);
-    // $book_date = preg_replace('#[\/]#i', '-', $book_date);
-    // list($m, $d, $y) = explode("/", $book_date);
-    // $book_date = $y.'-'.$m.'-'.$d;
-    
-    // $book_time = preg_replace('#[^0-9:APM]#i', '', $_POST['t']);
-    
-    // $ampm = substr($book_time, -2);
-    // $time = substr($book_time, 0, -2);
-    // $HHMM = explode(":", $time);
-    
-    // if(substr($book_time, -2) == "AM") {
-    //     if ($HHMM[0] == "12"){
-    //         $HHMM[0] = "00";
-    //         $t = $HHMM[0].":".$HHMM[1].":00";
-    //     } else {
-    //         $t = $time.":00";
-    //     }
-    // } else if(substr($book_time, -2) == "PM"){
-    //     if ($HHMM[0] != "12"){
-    //         $HHMM[0] += 12; 
-    //     }
-    //     $t = $HHMM[0].":".$HHMM[1].":00";
-    // }
-    
 
-    
-    
     $sql = "SELECT labduration FROM lab_info WHERE labnumber='$lab_number'";
     $query = mysqli_query($db_conx, $sql);
     while($row = mysqli_fetch_row($query)){

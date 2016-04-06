@@ -31,23 +31,19 @@ if (isset($_POST['d']) && isset($_POST['i']) && isset($_POST['e']) ){
 <html>
 <head>
 	<title>Admin</title>
-	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	<script src="js/admin.js"></script>
 	<script src="js/ajax.js"></script>
-	<!--<script src="js/users.js"></script>-->
 	<link href="css/admin.css" rel="stylesheet" type="text/css"/>
 	<link href="css/user.css" rel="stylesheet" type="text/css"/>
-	<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">-->
-	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>-->
-</head>
+	</head>
 <body>
 
 <div id="top">
     <a href=""><img src="img/logo-nosha.png" id="logo"></img></a>
     <span class="lab_top_text" id="lab_number">Admin Control</span>
     <button id="logout" onclick="location.href='php/logout';">Logout</button>
-    <form onsubmit="return false;"><input type="text" id="search" placeholder="Search User"/></form>
+    <form ><input type="text" id="search" placeholder="Search User"/></form>
     <!--<span class="lab_top_text" id="fname"><?php echo $profile_fname ?></span>-->
 </div>
 <div id="side">
@@ -71,6 +67,7 @@ if (isset($_POST['d']) && isset($_POST['i']) && isset($_POST['e']) ){
 			<th></th>
 			<th></th>
 		</tr>
+		
 		<?php
 		$sql = "SELECT id, idnumber, fname, lname, email, activated FROM users";
 		$query = mysqli_query($db_conx, $sql);

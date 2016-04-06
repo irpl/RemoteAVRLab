@@ -293,7 +293,7 @@ iframe{
 #pageMiddle{
     /* height: 100%; */
     overflow: auto;
-    /*overflow-x: hidden;*/
+    overflow-x: hidden;
     position: absolute;
     top: 55px;
     bottom: 0px; 

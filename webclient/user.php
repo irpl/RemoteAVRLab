@@ -243,7 +243,52 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
         <!--</div>-->
         <div id="user_id" style="display:none;"><?php echo $profile_idnumber ?></div>
         <div id="calendar" style="display:none;"></div>
-        
+        <script type="text/javascript">
+            var datetime;
+            var which_lab;
+            function initfullCallendar(){
+                // page is now ready, initialize the calendar...
+                $('#calendar').fullCalendar({
+                    // put your options and callbacks here
+                    // height: "100%",
+                    
+                    dayClick: function(date, jsEvent, view, resourceObj) {
+                
+                        console.log('Date: ' + date.format());
+                        
+                        //var view = $('#calendar').fullCalendar('getView');
+                        if(view.name == "month"){
+                            $("#calendar").fullCalendar( "changeView", "agendaDay");
+                            $("#calendar").fullCalendar( 'gotoDate', date.format() );
+                        }
+                        if (view.name == "agendaDay"){
+                            datetime = date.format().replace("T", " ");
+                            if(confirm("You've chosen "+datetime+" as you lab time slot,\nIs this ok?")){
+                                bookLab(datetime);
+                            }
+                        }
+                    },
+                    viewRender: function(view){
+                        if(view.name == "agendaDay"){
+                            $("#calendar").fullCalendar("option", "height", "auto");
+                        }
+                    },
+                    events: {
+                        url: 'php/json-events.php',
+                        type: 'POST',
+                        data: {
+                            "l": which_lab
+                        },
+                        error: function() {
+                            alert('there was an error while fetching events!');
+                        },
+                        //color: 'yellow',   // a non-ajax option
+                        //textColor: 'black' // a non-ajax option
+                    }
+                    
+                })
+            }
+        </script>
         <!--<div id="smn_" style="position:absolute; top:200px; left:190px;"></div>-->
     
         <?php
