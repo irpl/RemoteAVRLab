@@ -1,6 +1,6 @@
 <?php
 {
-$ip = "72.252.157.203";
+$ip = "72.252.157.140";
 $user = "admin";
 $pass = "kickmonkeydoukeN1";
 $port = "3306";

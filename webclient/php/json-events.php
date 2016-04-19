@@ -7,7 +7,7 @@ if(isset($_POST["l"])){
     } else {
         exit("NaN");
     }
-    $sql = "SELECT idnumber, bookedStartTime, bookedEndTime FROM labs WHERE bookedLab".$lab_number."='1'";
+    $sql = "SELECT idnumber, bookedStartTime, bookedEndTime FROM labbooking WHERE labbooked='$lab_number'";
     $query = mysqli_query($db_conx, $sql);
     while ($record = mysqli_fetch_array($query)) {
         $event_array[] = array(

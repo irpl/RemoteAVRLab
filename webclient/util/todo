@@ -7,4 +7,6 @@ stats table
     how many times logged in
     
 
-check to see if desired book time is available
+.check to see if desired book time is available
+
+check if user has current time booked wen loading lab

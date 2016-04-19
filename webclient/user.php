@@ -79,19 +79,19 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script type="text/javascript" src="js/jquery.ptTimeSelect.js"></script>
+    <!--<script type="text/javascript" src="js/jquery.ptTimeSelect.js"></script>-->
     <!--<link rel="stylesheet" href="/resources/demos/style.css">  -->
-    <link rel="stylesheet" href="css/jquery.ptTimeSelect.css">
+    <!--<link rel="stylesheet" href="css/jquery.ptTimeSelect.css">-->
     
-    <script>
-        $(function() {
-            $( "#datepicker" ).datepicker();
-        });
-        $(document).ready(function(){
-            // find the input fields and apply the time select to them.
-            $("#timepicker").ptTimeSelect({timeFormat: "H:i"});
-        });
-    </script>
+     <script>
+    //     $(function() {
+    //         $( "#datepicker" ).datepicker();
+    //     });
+    //     $(document).ready(function(){
+    //         // find the input fields and apply the time select to them.
+    //         $("#timepicker").ptTimeSelect({timeFormat: "H:i"});
+    //     });
+    // </script>
 <!---->
 
 <!--fullcalendar-->
@@ -120,8 +120,9 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
     
     
     <div id="top">
-        <a href=""><img src="img/logo-nosha.png" id="logo"></img></a>
-        <span class="lab_top_text" id="lab_number">Choose a lab</span>
+        <a href="https://remoteavrlab-irpl.c9users.io/webclient/"><img src="img/logo-nosha.png" id="logo"></img></a>
+        
+        <span class="lab_top_text" id="lab_number">Experiments Booking Central</span>
         <button id="logout" onclick="location.href='php/logout';">Logout</button>
         <?php
             if($isAdmin){
@@ -143,104 +144,124 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
         	 	<p id="loaded_n_total"></p>
         	</form>
         </div>
+        <div id="time"></div>
     </div>
     
    <div id="pageMiddle">
+       <div id=lab_defn>
+           <h1 id="b">Booked Labs </h1><h1 id="nb"> Available Labs</h1>
        <?php
             date_default_timezone_set("America/Jamaica");
             $now = new DateTime(date("Y-m-d H:i:s"));
             $result0 = $now->format('Y-m-d H:i:s');
+            $booked = "";
+            $arr_booked = array();
+            $arr_notbooked = array();
             
-            $sql = "SELECT * FROM labs WHERE idnumber='$profile_idnumber'";
+            $sql = "SELECT * FROM labbooking WHERE idnumber='$profile_idnumber' AND NOW() < bookedEndTime ORDER BY labbooked";
             $query = mysqli_query($db_conx, $sql);
             $numrows = mysqli_num_rows($query);
             if ($numrows > 0){
                 while($row=mysqli_fetch_row($query)){
-                    $booked_lab1 = $row[1];
-                    $booked_lab2 = $row[2];
-                    $booked_lab3 = $row[3];
-                    $start_time = new DateTime($row[5]);
+                    $booked_lab = $row[2];
+                    //$booked_lab2 = $row[2];
+                    //$booked_lab3 = $row[3];
+                    $start_time = new DateTime($row[4]);
                     $result1 = $start_time->format('Y-m-d H:i:s');
                     
-                    $end_time = new DateTime($row[6]);
+                    $end_time = new DateTime($row[5]);
                     $result2 = $end_time->format('Y-m-d H:i:s');
-    
+                    
+                    // creating button html
+                    if($now < $start_time){ //too early
+                        $button_html = "<button class='lab_button' id='lab".$booked_lab."'>Too Early</button>";
+                        $booked = "";
+                    } else if(($now > $start_time) && ($now < $end_time)) { // time started ans not yet finished
+                        $button_html = "<button class='lab_button' id='lab".$booked_lab."' onclick='loadLab(".$booked_lab.")' >Start Lab ".$booked_lab."</button>";
+                        $booked = "";
+                    } else if ($now > $end_time) {
+                        $button_html = "<button class='lab_button' id='lab".$booked_lab."' onclick='chooseTime(this)' >Book Me</button>";
+                        $booked = "class='not_booked'";
+                    }
+                    
+                    $sql = "SELECT title FROM lab_info WHERE labnumber='$booked_lab'";
+                    $query1 = mysqli_query($db_conx, $sql);
+                    //$numrows = mysqli_num_rows($query);
+                    $title=mysqli_fetch_row($query1);
+                    
+                    // echo "<div ".$booked."><span>Lab ".$booked_lab."<br/>".$title[0]."</span>".$button_html."<img src='img/".$booked_lab.".png'></img></div>";
+                    array_push($arr_booked, "<div ".$booked."><span>Lab ".$booked_lab."<br/>".$title[0]."</span>".$button_html."<img src='img/".$booked_lab.".png'></img></div>");
                 }
                 
-                if($booked_lab1 == 1){
-                    if($now < $start_time){ //too early
-                        $button1_html = "<button id='lab1'>too early</button>";
-                    } else if(($now > $start_time) && ($now < $end_time)) { // time started ans not yet finished
-                        $button1_html = "<button id='lab1' onclick='loadLab(1)' >Start Lab 1</button>";
-                    } else if ($now > $end_time) {
-                        $button1_html = "<button id='lab1' onclick='chooseTime(this)' >Book Me</button>";
+                $sql = "SELECT labnumber, title FROM lab_info WHERE labnumber NOT IN (SELECT labbooked FROM labbooking WHERE idnumber='$profile_idnumber' AND NOW() < bookedEndTime)";
+                $query = mysqli_query($db_conx, $sql);
+                $numrows = mysqli_num_rows($query);
+                if ($numrows > 0){
+                    while($row=mysqli_fetch_row($query)){
+                        $button_html = "<button class='lab_button' id='lab".$row[0]."' onclick='chooseTime(this)' >Book Me</button>";
+                        // echo "<div class='not_booked'><span>Lab ".$row[0]."<br/>".$row[1]."</span>".$button_html."<img src='img/".$row[0].".png'></img></div>";
+                        array_push($arr_notbooked, "<div class='not_booked'><span>Lab ".$row[0]."<br/>".$row[1]."</span>".$button_html."<img src='img/".$row[0].".png'></img></div>");
+                        
                     }
-                } else {
-                    $button1_html = "<button id='lab1' onclick='chooseTime(this)' >Book Me</button>";
+                }
+                $len = max(count($arr_booked), count($arr_notbooked));
+                for($i=0; $i<$len; $i++){
+                    $arr_book = isset($arr_booked[$i]) ? $arr_booked[$i] : '';
+                    $arr_notbook = isset($arr_notbooked[$i]) ? $arr_notbooked[$i] : '';
+                	echo $arr_book;
+                	echo $arr_notbook;
+                	
                 }
                 
-                if($booked_lab2 == 1){
-                    if($now < $start_time){ //too early
-                        $button2_html = "<button id='lab2'>too early</button>";
-                    } else if(($now > $start_time) && ($now < $end_time)) { // time started ans not yet finished
-                        $button2_html = "<button id='lab2' onclick='loadLab(2)' >Start Lab 2</button>";
-                    } else if ($now > $end_time) {
-                        $button2_html = "<button id='lab2' onclick='chooseTime(this)' >Book Me</button>";
-                    }
-                } else {
-                    $button2_html = "<button id='lab2' onclick='chooseTime(this)' >Book Me </button>";
-                }
-                
-                if($booked_lab3 == 1){
-                    if($now < $start_time){ //too early
-                        $button3_html = "<button id='lab3'>Too Early</button>";
-                    } else if(($now > $start_time) && ($now < $end_time)) { // time started ans not yet finished
-                        $button3_html = "<button id='lab3' onclick='loadLab(3)' >Start Lab 3</button>";
-                    } else if ($now > $end_time) {
-                        $button3_html = "<button id='labs' onclick='chooseTime(this)' >Book Me</button>";
-                    }
-                } else {
-                    $button3_html = "<button id='lab3' onclick='chooseTime(this)' >Book Me</button>";
-                }
             } else {
-                $button1_html = "<button id='lab1' onclick='chooseTime(this)' >Book Me</button>";
-                $button2_html = "<button id='lab2' onclick='chooseTime(this)' >Book Me</button>";
-                $button3_html = "<button id='lab3' onclick='chooseTime(this)' >Book Me</button>";
+                $sql = "SELECT * FROM lab_info";
+                $query = mysqli_query($db_conx, $sql);
+                $numrows = mysqli_num_rows($query);
+                echo "<div><span>Click the 'Book Me' button on an available lab</span></div>";
+                if ($numrows > 0){
+                    while($row=mysqli_fetch_row($query)){
+                        $button_html = "<button class='lab_button' id='lab".$row[0]."' onclick='chooseTime(this)' >Book Me</button>";
+                        
+                        echo "<div class='not_booked'><span>Lab ".$row[0]."<br/>".$row[1]."</span>".$button_html."<img src='img/".$row[0].".png'></img></div>";
+                        // array_push($arr_notbooked, "<div class='not_booked'><span>Lab ".$row[0]."<br/>".$row[1]."</span>".$button_html."<img src='img/".$row[0].".png'></img></div>");
+                    }
+                }
             }
-       ?>
-        <table id=lab_defn>
-            <tr>
-                <td>
-                    <h1>Lab 1</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt justo ut augue ultricies ultricies. Pellentesque sit amet velit non justo convallis tristique. Mauris convallis orci in urna fermentum, non auctor turpis fermentum. Donec quis metus in massa volutpat vestibulum. Curabitur ornare, metus id faucibus euismod, risus lorem ultrices arcu, non ornare est urna sit amet libero. In eget sagittis felis. In sit amet enim tellus. Nullam rutrum iaculis tristique. Aliquam ut sodales nulla. Suspendisse rutrum lorem a arcu faucibus dictum eget posuere neque.
-                    </p>
-                    <?php echo $button1_html;?>
-                </td>
-                <td>
-                    <h1>Lab 2</h1>
-                    <p>
-                        Nam tristique vitae nulla id placerat. Morbi eu blandit eros. Suspendisse eu laoreet dolor. Cras nec ante vel nunc gravida volutpat eget lacinia sapien. In finibus euismod imperdiet. Nullam efficitur malesuada imperdiet. Integer id libero et orci facilisis pellentesque sit amet eu mi.
-                    </p>
-                    <?php echo $button2_html;?>
-                </td>
-                <td>
-                    <h1>Lab 3</h1>
-                    <p>
-                        Integer dignissim ultrices purus sit amet tempus. Phasellus varius, est a iaculis dictum, felis nisl hendrerit metus, ac suscipit quam urna et mi. Fusce libero est, sagittis vel diam non, convallis mollis sem. Aliquam ornare blandit ipsum, id consequat libero fringilla ac. Cras et ullamcorper turpis, et dapibus nisi. Duis varius ipsum et cursus porta. Ut fringilla massa lacus, vel venenatis nisi dictum sit amet. Sed ut dolor id arcu imperdiet dictum sed at turpis. Cras porttitor rutrum tristique. Sed venenatis augue ut odio gravida, id interdum augue scelerisque. Pellentesque egestas dignissim odio sit amet varius. Proin facilisis viverra metus nec euismod.
-                    </p>
-                    <?php echo $button3_html;?>
-                </td>
-            </tr>
-        </table>
+            
+        ?>
         
-        <!--<div id="booking_form" style="display:none;">-->
-        <!--    <form onsubmit="return false;">-->
-        <!--        <div>Date: <input id="datepicker" type="text"/></div>-->
-        <!--        <div>Time: <input id="timepicker" type="text"/></div>-->
-        <!--        <button id="booklab" onclick="bookLab(<?php //echo $profile_idnumber ?>)" >Book Lab</button>-->
-        <!--    </form>-->
-        <!--</div>-->
+        <!--<div id=lab_defn>-->
+            <?php
+            // $sql = "SELECT * FROM lab_info";
+            // $query = mysqli_query($db_conx, $sql);
+            // $numrows = mysqli_num_rows($query);
+            // if ($numrows > 0){
+            //     while($row=mysqli_fetch_row($query)){
+            //         echo "<div>";
+            //         echo "<span>Lab ".$row[0]."<br/>".$row[1]."</span>";
+            //         echo $button_html;
+            //         echo "<img src='img/".$row[0].".png'></img>";
+            //         echo "</div>";
+            //     }
+            // }
+            ?>
+            <!--<div>-->
+            <!--    <span>Lab 1<br/>DELAY LOOPS & DIGITAL<br/>INPUT/OUTPUT</span>-->
+            <!--    <?php //echo $button1_html;?>-->
+            <!--    <img src="img/1.png"></img>-->
+            <!--</div>-->
+            <!--<div>-->
+            <!--    <span>Lab 2<br/><br/>7-SEG ELECTRONIC DICE</span>-->
+            <!--    <?php //echo $button2_html;?>-->
+            <!--    <img src="img/2.png"></img>-->
+            <!--</div>-->
+            <!--<div>-->
+            <!--    <span>Lab 3<br/><br/>AUTOMATED ROBOTIC ARM</span>-->
+            <!--    <?php //echo $button3_html;?>-->
+            <!--    <img src="img/3.png"></img>-->
+            <!--</div>-->
+        </div>
+        
         <div id="user_id" style="display:none;"><?php echo $profile_idnumber ?></div>
         <div id="calendar" style="display:none;"></div>
         <script type="text/javascript">
@@ -252,6 +273,12 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
                     // put your options and callbacks here
                     // height: "100%",
                     
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                        
+                    },
                     dayClick: function(date, jsEvent, view, resourceObj) {
                 
                         console.log('Date: ' + date.format());
@@ -268,11 +295,11 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
                             }
                         }
                     },
-                    viewRender: function(view){
-                        if(view.name == "agendaDay"){
-                            $("#calendar").fullCalendar("option", "height", "auto");
-                        }
-                    },
+                    // viewRender: function(view){
+                    //     if(view.name == "agendaDay"){
+                    //         //$("#calendar").fullCalendar("option", "height", "auto");
+                    //     }
+                    // },
                     events: {
                         url: 'php/json-events.php',
                         type: 'POST',
@@ -362,7 +389,7 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
                     <div id="live">
             	        <!--<iframe width="660" height="400" src="https://www.youtube.com/embed/_z84FvCSlaw" scrolling="no" frameborder="0">-->
             	        <!--<iframe height="100%" width="100%" src="http://72.252.157.203:8081" frameborder="0" allowfullscreen style="display:block"></iframe>-->
-            	        <img height="100%" width="100%" src="http://72.252.157.203:8081" style="display:block"></img>
+            	        <img height="100%" width="100%" src="http://philliplogan.com:8081" style="display:block"></img>
             		        <!--<p>Your browser does not support iframes.</p>-->
             	        </iframe>
                     </div>

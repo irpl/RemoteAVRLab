@@ -236,7 +236,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt justo u
                 <div id="live">
         	        <!--<iframe width="660" height="400" src="https://www.youtube.com/embed/_z84FvCSlaw" scrolling="no" frameborder="0">-->
         	        <!--<iframe height="100%" width="100%" src="http://72.252.157.203:8081" frameborder="0" allowfullscreen style="display:block"></iframe>-->
-        	        <img height="100%" width="100%" src="http://72.252.157.203:8081" style="display:block"></img>
+        	        <img height="100%" width="100%" src="http://philliplogan.com:8081" style="display:block"></img>
         		        <!--<p>Your browser does not support iframes.</p>-->
         	        </iframe>
                 </div>

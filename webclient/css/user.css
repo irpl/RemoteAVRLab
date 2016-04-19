@@ -53,23 +53,23 @@ button:disabled,button:disabled:hover{
     border-color: #ccbfc0;
 }
 
-#lab_defn button{
-    width:100px;
-    height: 100px;
-    background: #ff656c;
-    box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid #e15960;
-    color: #fff;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 14px;
-    font-family: Montserrat, sans-serif;
-    outline: none;
-    cursor: pointer;
-    margin-left: 10px; 
-    margin-right: 10px; 
-}
+/*#lab_defn button{*/
+/*    width:5vw;*/
+/*    height: 5vw;*/
+/*    background: #ff656c;*/
+/*    box-sizing: border-box;*/
+/*    border-radius: 5px;*/
+/*    border: 1px solid #e15960;*/
+/*    color: #fff;*/
+/*    font-weight: bold;*/
+/*    text-transform: uppercase;*/
+/*    font-size: 14px;*/
+/*    font-family: Montserrat, sans-serif;*/
+/*    outline: none;*/
+/*    cursor: pointer;*/
+/*    margin-left: 10px; */
+/*    margin-right: 10px; */
+/*}*/
 
 #booking_form{
     position: absolute;
@@ -140,7 +140,7 @@ new stuff added
     margin-bottom: 3px;
 }
 input[type=button], #file1+label , button{
-    width:85px;
+    width:100px;
     height: 28px;
     background: #ff656c;
     box-sizing: border-box;
@@ -263,17 +263,7 @@ iframe{
     /*float:right;*/
     /*display:block;*/
 }
-#lab_defn {
-    /*position: absolute;*/
-    /*top: 55px;*/
-    /*left: 190px;*/
-    /*right: 0;*/
-    /*bottom: 0;*/
-    /*display:block;*/
-    border-spacing: 10px;
-    /*overflow: scroll;*/
-    /*overflow-x: hidden;*/
-}
+
 #lab_defn td{
     width: 33%;
     height:50%;
@@ -281,6 +271,7 @@ iframe{
     background-color: white;
     padding:30px;
     padding-top:0;
+    position: relative;
 }
 
 #calendar{
@@ -292,6 +283,7 @@ iframe{
 }
 #pageMiddle{
     /* height: 100%; */
+    background:#f0f0f0;
     overflow: auto;
     overflow-x: hidden;
     position: absolute;
@@ -300,4 +292,100 @@ iframe{
     left: 190px;
     right: 0px;
     /* z-index: -1; */
+}
+.fc-day:hover{
+    background:lightblue;
+    cursor: pointer;
+    
+}
+
+.lab_button{
+    position: absolute;
+    top:9px;
+    left:38%;
+    margin:auto;
+}
+
+#lab_defn div{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    height: 100px;
+    width: 48%;
+    margin-top: 1%;
+    margin-left: 1%;
+    margin-right: 0%;
+    position: relative;
+    background: #f0f0f0;
+    clear:left;
+}
+#lab_defn {
+    /*padding-top: 40px;*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* display: block; */
+    /* border-spacing: 10px; */
+    overflow: auto;
+    overflow-x: hidden;
+    background: white;
+    margin: 1% auto;
+    width: 75%;
+    z-index:1;
+}
+#lab_defn:before{
+    position:absolute;
+    margin-bottom: 10px;
+    z-index:-1;
+    top:0;
+    left:0;
+    width:100%;
+    height:60px;
+    content:"";
+    background-color:#ff656c;
+}
+#lab_defn:after {
+    content:"";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    border-left: 2px solid #ff656c;
+}
+
+#lab_defn img{
+    height: 100%;
+    float: right;
+    
+}
+
+#lab_defn span{
+    position: absolute !important;
+    top: 13%;
+    left: 5%;
+    font-size: 100%;
+}
+#lab_defn h1{
+    /*margin: 1% 17% 1% 17%;;*/
+    color: white;
+    text-align: center;
+}
+#b{
+    margin-left: 20%;
+    float: left;
+}
+#nb{
+    margin-right: 20%;
+    float: right;
+}
+
+.not_booked{
+    margin-left: 0% !important;
+    margin-right: 1% !important;
+    float: right !important;
+    clear: right !important;
 }

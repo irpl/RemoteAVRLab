@@ -38,12 +38,25 @@ if (isset($_POST['d']) && isset($_POST['i']) && isset($_POST['e']) ){
 	<link href="css/user.css" rel="stylesheet" type="text/css"/>
 	</head>
 <body>
-
+<?php
+$sql = "SELECT id, idnumber, fname, lname, email, activated FROM users";
+$css = "display:none; float:right; margin-right:26px; margin-top:9px;";
+if(isset($_GET['search'])) {
+    $search = $_GET['search'];
+    $css = '"display:block; float:right; margin-right:26px; margin-top:9px;"';
+    if (is_numeric($search)){
+    	$sql = "SELECT id, idnumber, fname, lname, email, activated FROM users WHERE idnumber LIKE '%$search%'";
+    } else{
+    	$sql = "SELECT id, idnumber, fname, lname, email, activated FROM users WHERE fname LIKE '%$search%'";
+    }
+}
+?>
 <div id="top">
-    <a href=""><img src="img/logo-nosha.png" id="logo"></img></a>
+    <a href="https://remoteavrlab-irpl.c9users.io/webclient/"><img src="img/logo-nosha.png" id="logo"></img></a>
     <span class="lab_top_text" id="lab_number">Admin Control</span>
     <button id="logout" onclick="location.href='php/logout';">Logout</button>
-    <form ><input type="text" id="search" placeholder="Search User"/></form>
+    <form action="" method="get"><input type="text" id="search" name="search" placeholder="Search User"/></form>
+	<button onclick="location.href='admin';" style=<?php echo $css; ?>>Reset</button>
     <!--<span class="lab_top_text" id="fname"><?php echo $profile_fname ?></span>-->
 </div>
 <div id="side">
@@ -69,7 +82,7 @@ if (isset($_POST['d']) && isset($_POST['i']) && isset($_POST['e']) ){
 		</tr>
 		
 		<?php
-		$sql = "SELECT id, idnumber, fname, lname, email, activated FROM users";
+		
 		$query = mysqli_query($db_conx, $sql);
 		
 		$i=0;

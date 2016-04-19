@@ -31,13 +31,14 @@ function loadLab(lab){
                 	console.log(title);
                     save();
                 	_("loading").style.display="none";
+                	//startTimer();
                 } else { 
                     alert("not ready"); 
                 } 
             } 
         } 
         ajax.send("y="+lab); 
-    // startTimer(60*5);
+     startTimer(60*5);
 }
 function program(idnumber, what) {
     var i = idnumber;
@@ -45,18 +46,19 @@ function program(idnumber, what) {
         alert("Something went wrong");
         return;
     }
+    _("output").value = "";
     _("program").disabled = true;
     _("compile").disabled = true;
     var ajax = ajaxObj("POST", "php/program.php");
         ajax.onreadystatechange = function() {
 	        if(ajaxReturn(ajax) == true) {
                 if(ajax.responseText != "not_signed_in"){
-                    _("output").value +=ajax.responseText +"\n\n";
+                    _("output").value =ajax.responseText +"\n\n";
 	                _("program").disabled = false;
 	                _("compile").disabled = false;
 	                _("output").scrollTop = _("output").scrollHeight;
 				} else {
-				    _("output").value +=ajax.responseText +"\n\n";
+				    _("output").value =ajax.responseText +"\n\n";
 				    _("program").disabled = false;
 				    _("compile").disabled = false;
 				} 

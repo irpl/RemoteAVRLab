@@ -12,7 +12,7 @@ if(isset($_POST["y"])) {
         $port = $_POST["y"];
     }
     
-    $sftp = new Net_SFTP('72.252.157.203');
+    $sftp = new Net_SFTP('philliplogan.com');
     if (!$sftp->login('root', 'twotothenthr00t')) {
         exit('Login Failed');
     }
@@ -31,26 +31,15 @@ if ((isset($_POST['p']) || isset($_POST['c'])) && isset($_POST["l"])){
     $l = $_POST["l"];
     $dir = "";
     $file = "";
-    // switch (intval($l)) {
-    //     case 1:
-    //         $dir = "t85_test";
-    //         $file = "main.S";
-    //         break;
-    //     case 2:
-    //         $dir = "attiny2313_test";
-    //         $file = "main.c";
-    //         break;
-    //     default:
-    //         // code...
-    //         break;
-    // }
     
     if(intval($l) == 1){
         $dir = "t85_test";
         $file = "main.S";
     } else if (intval($l) == 2){
         $dir = "attiny2313_test";
-        // $dir = "t85_test";
+        $file = "main.c";
+    } else if (intval($l) == 3){
+        $dir = "328p_test";
         $file = "main.c";
     } else {
         echo '$l is '.$_POST['l'];
@@ -75,7 +64,7 @@ if ((isset($_POST['p']) || isset($_POST['c'])) && isset($_POST["l"])){
     //set_include_path(get_include_path() . PATH_SEPARATOR . 'phpseclib/');
     //include('Net/SFTP.php');
     
-    $sftp = new Net_SFTP('72.252.157.203');
+    $sftp = new Net_SFTP('philliplogan.com');
     if (!$sftp->login('root', 'twotothenthr00t')) {
         exit('Login Failed');
     }
