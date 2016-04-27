@@ -38,7 +38,7 @@ function loadLab(lab){
             } 
         } 
         ajax.send("y="+lab); 
-     startTimer(60*5);
+     startTimer(60*15);
 }
 function program(idnumber, what) {
     var i = idnumber;

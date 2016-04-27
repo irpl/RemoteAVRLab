@@ -1,5 +1,5 @@
 body {
-    background: url('../img/bg.jpg') no-repeat fixed center center;
+    background: url('../img/green-bg.jpg') no-repeat fixed center center;
     background-size: cover;
     font-family: Montserrat;
 }
@@ -9,7 +9,7 @@ body {
 }
 
 .logo {
-    background: url('../img/logo-nosha.png') no-repeat center center;
+    background: url('../img/green-logo-nosha.png') no-repeat center center;
     background-size: 200px;
     height:200px;
     width:200px;
@@ -22,8 +22,10 @@ body {
     padding: 20px;
     background: #fff;
     border-radius: 5px;
-    border:1px solid #ff656c;
-    border-top: 5px solid #ff656c;
+    /*border:1px solid #ff656c;*/
+    border:1px solid #558c89;
+    /*border-top: 5px solid #ff656c;*/
+    border-top: 5px solid #558c89;
     margin: 80px auto;
 }
 
@@ -49,7 +51,8 @@ body {
 }
 
 .login-block span#not-reg a:hover{
-    color: #ff656c;
+    /*color: #ff656c;*/
+    color: #558c89;
     /*text-decoration:underline;*/
 }
 
@@ -82,10 +85,10 @@ body {
     background-size: 16px 80px;
 }
 
-/*.login-block input#username:focus {*/
-/*    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;*/
-/*    background-size: 16px 80px;*/
-/*}*/
+.login-block input#idnumber:focus {
+    background: #fff url('../img/id.png') 20px bottom no-repeat;
+    background-size: 16px 80px;
+}
 
 .login-block input#password {
     background: #fff url('../img/pass.png') 20px top no-repeat;
@@ -98,16 +101,19 @@ body {
 }
 
 .login-block input:active, .login-block input:focus {
-    border: 1px solid #ff656c;
+    /*border: 1px solid #ff656c;*/
+    border: 1px solid #558c89;
 }
 
 .login-block button {
     /*width: 100%;*/width:320px;
     height: 40px;
-    background: #ff656c;
+    /*background: #ff656c;*/
+    background: #558c89;
     box-sizing: border-box;
     border-radius: 5px;
-    border: 1px solid #e15960;
+    /*border: 1px solid #e15960;*/
+    border: 1px solid #385c5a;
     color: #fff;
     font-weight: bold;
     text-transform: uppercase;
@@ -118,5 +124,6 @@ body {
 }
 
 .login-block button:hover {
-    background: #ff7b81;
+    /*background: #ff7b81;*/
+    background: #74AFAD;
 }

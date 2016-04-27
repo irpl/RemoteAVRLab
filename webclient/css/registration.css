@@ -9,7 +9,7 @@ body {
 }
 
 .logo {
-    background: url('../img/logo-nosha.png') no-repeat center center;
+    background: url('../img/green-logo-nosha.png') no-repeat center center;
     background-size: 200px;
     height:200px;
     width:200px;
@@ -22,7 +22,8 @@ body {
     padding: 20px;
     background: #fff;
     border-radius: 5px;
-    border-top: 5px solid #ff656c;
+    /*border-top: 5px solid #ff656c;*/
+    border-top: 5px solid #558c89;
     margin: 80px auto;
 }
 
@@ -132,16 +133,19 @@ body {
 }
 
 .login-block input:active, .login-block input:focus {
-    border: 1px solid #ff656c;
+    /*border: 1px solid #ff656c;*/
+    border: 1px solid #558c89;
 }
 
 .login-block button {
     /*width: 100%;*/width:320px;
     height: 40px;
-    background: #ff656c;
+    /*background: #ff656c;*/
+    background: #558c89;
     box-sizing: border-box;
     border-radius: 5px;
-    border: 1px solid #e15960;
+    /*border: 1px solid #e15960;*/
+    border: 1px solid #385c5a;
     color: #fff;
     font-weight: bold;
     text-transform: uppercase;
@@ -152,7 +156,8 @@ body {
 }
 
 .login-block button:hover {
-    background: #ff7b81;
+    /*background: #ff7b81;*/
+    background: #74AFAD;
 }
 
 #idnumber {

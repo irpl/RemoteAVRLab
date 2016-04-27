@@ -52,7 +52,7 @@ if(isset($_GET['search'])) {
 }
 ?>
 <div id="top">
-    <a href="https://remoteavrlab-irpl.c9users.io/webclient/"><img src="img/logo-nosha.png" id="logo"></img></a>
+    <a href="https://remoteavrlab-irpl.c9users.io/webclient/"><img src="img/green-logo-nosha.png" id="logo"></img></a>
     <span class="lab_top_text" id="lab_number">Admin Control</span>
     <button id="logout" onclick="location.href='php/logout';">Logout</button>
     <form action="" method="get"><input type="text" id="search" name="search" placeholder="Search User"/></form>

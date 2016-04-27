@@ -33,6 +33,7 @@ table{
 
 tr:nth-child(2n+1) {
     background-color: #ffe0e1;
+    background-color: #adcdcb;
 }
 
 td, th {

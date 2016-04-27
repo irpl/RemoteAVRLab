@@ -5,8 +5,9 @@ allow admin to add another admin
 stats table
     wen last logged in
     how many times logged in
-    
-
-.check to see if desired book time is available
 
 check if user has current time booked wen loading lab
+
+make color chooser
+
+allow user to switch layouts

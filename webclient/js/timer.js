@@ -9,12 +9,12 @@ function startTimer(duration) {
 
         _("time").textContent = minutes + ":" + seconds;
 
-        if (--timer < 0) {
-            timer = duration;
-            /*
-            alert("time's up");
-            hearder to booking page
-            */
+        if (--timer == 0) {
+            //timer = duration;
+            
+            alert("Your booked slot time has elapsed.");
+            //hearder to booking page
+            window.location = "https://remoteavrlab-irpl.c9users.io/webclient/";
         }
     }, 1000);
 }

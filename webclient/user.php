@@ -120,7 +120,7 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
     
     
     <div id="top">
-        <a href="https://remoteavrlab-irpl.c9users.io/webclient/"><img src="img/logo-nosha.png" id="logo"></img></a>
+        <a href="https://remoteavrlab-irpl.c9users.io/webclient/"><img src="img/green-logo-nosha.png" id="logo"></img></a>
         
         <span class="lab_top_text" id="lab_number">Experiments Booking Central</span>
         <button id="logout" onclick="location.href='php/logout';">Logout</button>
@@ -174,7 +174,7 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
                     
                     // creating button html
                     if($now < $start_time){ //too early
-                        $button_html = "<button class='lab_button' id='lab".$booked_lab."'>Too Early</button>";
+                        $button_html = "<button class='lab_button' id='lab".$booked_lab."' onclick='loadLab(".$booked_lab.")'>Too Early</button>";
                         $booked = "";
                     } else if(($now > $start_time) && ($now < $end_time)) { // time started ans not yet finished
                         $button_html = "<button class='lab_button' id='lab".$booked_lab."' onclick='loadLab(".$booked_lab.")' >Start Lab ".$booked_lab."</button>";
@@ -389,7 +389,7 @@ while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
                     <div id="live">
             	        <!--<iframe width="660" height="400" src="https://www.youtube.com/embed/_z84FvCSlaw" scrolling="no" frameborder="0">-->
             	        <!--<iframe height="100%" width="100%" src="http://72.252.157.203:8081" frameborder="0" allowfullscreen style="display:block"></iframe>-->
-            	        <img height="100%" width="100%" src="http://philliplogan.com:8081" style="display:block"></img>
+            	        <img height="100%" width="100%" src="http://63.143.90.38:8081" style="display:block"></img>
             		        <!--<p>Your browser does not support iframes.</p>-->
             	        </iframe>
                     </div>

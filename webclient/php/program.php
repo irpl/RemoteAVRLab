@@ -12,7 +12,7 @@ if(isset($_POST["y"])) {
         $port = $_POST["y"];
     }
     
-    $sftp = new Net_SFTP('philliplogan.com');
+    $sftp = new Net_SFTP('63.143.90.38');
     if (!$sftp->login('root', 'twotothenthr00t')) {
         exit('Login Failed');
     }
@@ -64,7 +64,7 @@ if ((isset($_POST['p']) || isset($_POST['c'])) && isset($_POST["l"])){
     //set_include_path(get_include_path() . PATH_SEPARATOR . 'phpseclib/');
     //include('Net/SFTP.php');
     
-    $sftp = new Net_SFTP('philliplogan.com');
+    $sftp = new Net_SFTP('63.143.90.38');
     if (!$sftp->login('root', 'twotothenthr00t')) {
         exit('Login Failed');
     }
